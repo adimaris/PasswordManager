@@ -1,6 +1,8 @@
 package com.alexanderdimaris.passwordmanager.model;
 
-public class PassObj {
+import java.io.Serializable;
+
+public class PassObj implements Serializable { // TODO change this to Parsable
 
     private int id;
     private String title;

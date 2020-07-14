@@ -13,7 +13,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String PASSWORD_TABLE = "PASSWORD_TABLE";
     private static final String COLUMN_TITLE_NAME = "COLUMN_TITLE_NAME";
     private static final String COLUMN_USERNAME = "COLUMN_USERNAME";
-    private static final String COLUMN_PASSWORD_TEXT = "COLUMN_PASSWORD TEXT";
+    private static final String COLUMN_PASSWORD_TEXT = "COLUMN_PASSWORD_TEXT";
     private static final String COLUMN_COMMENTS = "COLUMN_COMMENTS";
     private static final String COLUMN_ID = "ID";
 
@@ -24,12 +24,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement =   "CREATE TABLE " + PASSWORD_TABLE
-                + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COLUMN_TITLE_NAME + " TEXT, "
-                + COLUMN_USERNAME + " TEXT, "
-                + COLUMN_PASSWORD_TEXT + ", "
-                + COLUMN_COMMENTS + " TEXT)";
+        String createTableStatement = "CREATE TABLE " + PASSWORD_TABLE
+                                    + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+                                    + COLUMN_TITLE_NAME + " TEXT, "
+                                    + COLUMN_USERNAME + " TEXT, "
+                                    + COLUMN_PASSWORD_TEXT + " TEXT, "
+                                    + COLUMN_COMMENTS + " TEXT)";
         db.execSQL(createTableStatement);
     }
 
