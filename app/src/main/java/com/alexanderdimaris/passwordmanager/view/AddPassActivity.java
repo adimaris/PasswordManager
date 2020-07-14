@@ -39,7 +39,7 @@ public class AddPassActivity extends AppCompatActivity {
             }
         });
 
-        TextInputLayout textInputLayout = findViewById(R.id.activity_existing_pass_til_password);
+        TextInputLayout textInputLayout = findViewById(R.id.activity_add_pass_til_password);
         textInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

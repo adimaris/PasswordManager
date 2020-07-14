@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 
 import com.alexanderdimaris.passwordmanager.R;
 import com.alexanderdimaris.passwordmanager.model.PassObj;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +38,10 @@ public class PasswordAdapter extends ArrayAdapter<PassObj> {
 
         PassObj currentPassword = passwordList.get(position);
 
-        TextView passwordTitle = listItem.findViewById(R.id.list_item_tv_title);
+        MaterialTextView passwordTitle = listItem.findViewById(R.id.list_item_tv_title);
         passwordTitle.setText(currentPassword.getTitle());
 
-        TextView usernameText = listItem.findViewById(R.id.list_item_tv_username);
+        MaterialTextView usernameText = listItem.findViewById(R.id.list_item_tv_username);
         usernameText.setText(currentPassword.getUsername());
 
         return listItem;
