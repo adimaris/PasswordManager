@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Toast;
 
 import com.alexanderdimaris.passwordmanager.R;
 import com.alexanderdimaris.passwordmanager.model.PassObj;

@@ -20,21 +20,10 @@ import java.util.Random;
 
 public class PassGeneratorActivity extends AppCompatActivity {
 
-    private SwitchMaterial mLowerCase;
-    private SwitchMaterial mUpperCase;
-    private SwitchMaterial mDigits;
-    private SwitchMaterial mSpecial;
-    private SwitchMaterial mBrackets;
-    private SwitchMaterial mSpaces;
-
-    private MaterialButton btSave;
+    private SwitchMaterial mLowerCase, mUpperCase, mDigits, mSpecial, mBrackets, mSpaces;
+    private MaterialButton btAccept, btBack;
     private TextInputLayout mTextInputLayout;
-    private TextInputEditText etLength;
-    private TextInputEditText etPasswordOutput;
-    private MaterialButton btAccept;
-
-    private MaterialButton btBack;
-
+    private TextInputEditText etLength, etPasswordOutput;
     private CoordinatorLayout snackBar;
 
     private String lowers = "abcdefghijklmnopqrstuvwxyz";
@@ -56,10 +45,8 @@ public class PassGeneratorActivity extends AppCompatActivity {
         mBrackets = findViewById(R.id.activity_pass_generator_sw_brackets);
         mSpaces = findViewById(R.id.activity_pass_generator_sw_spaces);
 
-        btSave = findViewById(R.id.activity_pass_generator_bt_accept);
         etLength = findViewById(R.id.activity_pass_generator_et_length);
         etPasswordOutput = findViewById(R.id.activity_pass_generator_et_password);
-        btAccept = findViewById(R.id.activity_pass_generator_bt_accept);
 
         snackBar = findViewById(R.id.activity_pass_generator_coordinator_layout);
 
@@ -67,10 +54,11 @@ public class PassGeneratorActivity extends AppCompatActivity {
         mTextInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                generatePassword(btSave);
+                generatePassword(v);
             }
         });
 
+        btAccept = findViewById(R.id.activity_pass_generator_bt_accept);
         btAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

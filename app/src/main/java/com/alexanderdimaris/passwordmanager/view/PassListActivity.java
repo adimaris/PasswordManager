@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.alexanderdimaris.passwordmanager.R;
 import com.alexanderdimaris.passwordmanager.model.DataBaseHelper;
@@ -35,6 +34,7 @@ public class PassListActivity extends AppCompatActivity {
         mSnackBarLayout = findViewById(R.id.activity_pass_list_snackbar_layout);
         mListView = findViewById(R.id.activity_pass_list_lv);
         mDataBaseHelper = new DataBaseHelper(PassListActivity.this);
+
         updateList();
 
         mFAB.setOnClickListener(new View.OnClickListener() {
@@ -76,15 +76,14 @@ public class PassListActivity extends AppCompatActivity {
                 operation = "delete";
             }
             updateList();
-            buildSnackBarMessages(success, operation, passObj.getTitle());
-        }
-    }
 
-    public void buildSnackBarMessages(boolean success, String op, String title) {
-        String result = (success == true) ? "COMPLETED" : "FAILED";
-        Snackbar.make(mSnackBarLayout, op + " operation for " + title + " " + result, Snackbar.LENGTH_LONG)
-                .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
-                .show();
+            if(success == false) {
+                Snackbar.make(mSnackBarLayout, operation + " operation for " + passObj.getTitle() + " failed", Snackbar.LENGTH_LONG)
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        .setAnchorView(mFAB)
+                        .show();
+            }
+        }
     }
 
     private void updateList() {

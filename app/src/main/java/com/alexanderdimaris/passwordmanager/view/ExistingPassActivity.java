@@ -2,31 +2,29 @@ package com.alexanderdimaris.passwordmanager.view;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Toast;
 
 import com.alexanderdimaris.passwordmanager.R;
 import com.alexanderdimaris.passwordmanager.model.PassObj;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 
 public class ExistingPassActivity extends AppCompatActivity {
     private PassObj mPassObj = null;
-    private TextInputEditText etTitle;
-    private TextInputEditText etUsername;
-    private TextInputEditText etPassword;
-    private TextInputEditText etComments;
+    private TextInputEditText etTitle, etUsername, etPassword, etComments;
     private TextInputLayout tilPassword;
     private MaterialTextView tvTitle;
-    private MaterialButton btEdit;
-    private MaterialButton btDelete;
-    private MaterialButton btBack;
+    private MaterialButton btEdit, btDelete, btBack;
+    private CoordinatorLayout snackBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +35,9 @@ public class ExistingPassActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.activity_existing_pass_et_username);
         etPassword = findViewById(R.id.activity_existing_pass_et_password);
         etComments = findViewById(R.id.activity_existing_pass_et_comment);
-
         tilPassword = findViewById(R.id.activity_existing_pass_til_password);
-
         tvTitle = findViewById(R.id.activity_existing_pass_tv_title);
+        snackBar = findViewById(R.id.activity_existing_pass_coordinator_layout);
 
         Intent intent = getIntent();
         mPassObj = (PassObj) intent.getExtras().getSerializable("passObj");
@@ -49,7 +46,6 @@ public class ExistingPassActivity extends AppCompatActivity {
         etUsername.setText(mPassObj.getUsername());
         etPassword.setText(mPassObj.getPassword());
         etComments.setText(mPassObj.getComments());
-
         tvTitle.setText(mPassObj.getTitle());
 
         btEdit = findViewById(R.id.activity_existing_pass_bt_edit);
@@ -83,7 +79,10 @@ public class ExistingPassActivity extends AppCompatActivity {
     public void editClicked(View v) {
         btEdit.setText("SAVE");
         btEdit.setIconResource(R.drawable.baseline_save_black_18dp);
-
+        etTitle.setEnabled(true);
+        etUsername.setEnabled(true);
+        etPassword.setEnabled(true);
+        etComments.setEnabled(true);
         etPassword.setInputType(InputType.TYPE_CLASS_TEXT);
 
         tilPassword.setEndIconDrawable(R.drawable.ic_baseline_build_24);
@@ -98,13 +97,16 @@ public class ExistingPassActivity extends AppCompatActivity {
         btEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = etTitle.getText().toString();
+                String title = etTitle.getText().toString(); // TODO seems like this should be its own method
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 String comments = etComments.getText().toString();
 
                 if(title.equals("") || username.equals("") || password.equals("")) {
-                    Toast.makeText(getApplicationContext(), "One of the required fields were left blank", Toast.LENGTH_LONG).show();
+                    Snackbar.make(snackBar, "A required field was left blank. Please try again.", Snackbar.LENGTH_LONG)
+                            .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                            .setAnchorView(btDelete)
+                            .show();
                 } else {
                     mPassObj.setTitle(title);
                     mPassObj.setUsername(username);
