@@ -19,25 +19,25 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class PassListActivity extends AppCompatActivity {
 
-    private FloatingActionButton mFAB;
-    private CoordinatorLayout mSnackBarLayout;
-    private DataBaseHelper mDataBaseHelper;
-    private ListView mListView;
-    private PasswordAdapter mPasswordAdapter;
+    private FloatingActionButton fab;
+    private CoordinatorLayout snackBarLayout;
+    private DataBaseHelper dataBaseHelper;
+    private ListView listView;
+    private PasswordAdapter passwordAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_list);
 
-        mFAB = findViewById(R.id.activity_pass_list_fab);
-        mSnackBarLayout = findViewById(R.id.activity_pass_list_snackbar_layout);
-        mListView = findViewById(R.id.activity_pass_list_lv);
-        mDataBaseHelper = new DataBaseHelper(PassListActivity.this);
+        fab = findViewById(R.id.activity_pass_list_fab);
+        snackBarLayout = findViewById(R.id.activity_pass_list_snackbar_layout);
+        listView = findViewById(R.id.activity_pass_list_lv);
+        dataBaseHelper = new DataBaseHelper(PassListActivity.this);
 
         updateList();
 
-        mFAB.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddPassActivity.class);
@@ -45,7 +45,7 @@ public class PassListActivity extends AppCompatActivity {
             }
         });
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 PassObj selected = (PassObj) parent.getItemAtPosition(position);
@@ -66,28 +66,28 @@ public class PassListActivity extends AppCompatActivity {
             String operation = "";
 
             if(resultCode == 1) {
-                success = mDataBaseHelper.addOne(passObj);
+                success = dataBaseHelper.addOne(passObj);
                 operation = "add";
             } else if (resultCode == 2) {
-                success = mDataBaseHelper.updateOne(passObj);
+                success = dataBaseHelper.updateOne(passObj);
                 operation = "update";
             } else if(resultCode == 3) {
-                success = mDataBaseHelper.deleteOne(passObj);
+                success = dataBaseHelper.deleteOne(passObj);
                 operation = "delete";
             }
             updateList();
 
             if(success == false) {
-                Snackbar.make(mSnackBarLayout, operation + " operation for " + passObj.getTitle() + " failed", Snackbar.LENGTH_LONG)
+                Snackbar.make(snackBarLayout, operation + " operation for " + passObj.getTitle() + " failed", Snackbar.LENGTH_LONG)
                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
-                        .setAnchorView(mFAB)
+                        .setAnchorView(fab)
                         .show();
             }
         }
     }
 
     private void updateList() {
-        mPasswordAdapter = new PasswordAdapter(this, mDataBaseHelper.getAll());
-        mListView.setAdapter(mPasswordAdapter);
+        passwordAdapter = new PasswordAdapter(this, dataBaseHelper.getAll());
+        listView.setAdapter(passwordAdapter);
     }
 }

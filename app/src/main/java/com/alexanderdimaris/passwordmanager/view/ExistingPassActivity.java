@@ -21,7 +21,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 
 public class ExistingPassActivity extends AppCompatActivity {
-    private PassObj mPassObj = null;
+    private PassObj passObj = null;
     private TextInputEditText etTitle, etUsername, etPassword, etComments;
     private TextInputLayout tilPassword;
     private MaterialTextView tvTitle;
@@ -42,13 +42,13 @@ public class ExistingPassActivity extends AppCompatActivity {
         snackBar = findViewById(R.id.activity_existing_pass_coordinator_layout);
 
         Intent intent = getIntent();
-        mPassObj = (PassObj) intent.getExtras().getSerializable("passObj");
+        passObj = (PassObj) intent.getExtras().getSerializable("passObj");
 
-        etTitle.setText(mPassObj.getTitle());
-        etUsername.setText(mPassObj.getUsername());
-        etPassword.setText(mPassObj.getPassword());
-        etComments.setText(mPassObj.getComments());
-        tvTitle.setText(mPassObj.getTitle());
+        etTitle.setText(passObj.getTitle());
+        etUsername.setText(passObj.getUsername());
+        etPassword.setText(passObj.getPassword());
+        etComments.setText(passObj.getComments());
+        tvTitle.setText(passObj.getTitle());
 
         btEdit = findViewById(R.id.activity_existing_pass_bt_edit);
         btEdit.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +84,7 @@ public class ExistingPassActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("passObj", mPassObj);
+                resultIntent.putExtra("passObj", passObj);
                 setResult(3, resultIntent);
                 finish();
             }
@@ -132,13 +132,13 @@ public class ExistingPassActivity extends AppCompatActivity {
                             .setAnchorView(btDelete)
                             .show();
                 } else {
-                    mPassObj.setTitle(title);
-                    mPassObj.setUsername(username);
-                    mPassObj.setPassword(password);
-                    mPassObj.setComments(comments);
+                    passObj.setTitle(title);
+                    passObj.setUsername(username);
+                    passObj.setPassword(password);
+                    passObj.setComments(comments);
 
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra("passObj", mPassObj);
+                    resultIntent.putExtra("passObj", passObj);
                     setResult(2, resultIntent);
                     finish();
                 }

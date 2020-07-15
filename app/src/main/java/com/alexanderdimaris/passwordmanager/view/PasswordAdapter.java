@@ -5,14 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.alexanderdimaris.passwordmanager.R;
 import com.alexanderdimaris.passwordmanager.model.PassObj;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
@@ -20,12 +18,12 @@ import java.util.List;
 
 public class PasswordAdapter extends ArrayAdapter<PassObj> {
 
-    private Context mContext;
+    private Context context;
     private List<PassObj> passwordList = new ArrayList<>();
 
     public PasswordAdapter(Context context, ArrayList<PassObj> passwords) {
         super(context, 0, passwords);
-        mContext = context;
+        this.context = context;
         passwordList = passwords;
     }
 
@@ -34,7 +32,7 @@ public class PasswordAdapter extends ArrayAdapter<PassObj> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
 
-        if(listItem == null) listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
+        if(listItem == null) listItem = LayoutInflater.from(context).inflate(R.layout.list_item,parent,false);
 
         PassObj currentPassword = passwordList.get(position);
 

@@ -6,7 +6,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.alexanderdimaris.passwordmanager.R;
 import com.google.android.material.button.MaterialButton;
@@ -21,10 +20,10 @@ import java.util.Random;
 
 public class PassGeneratorActivity extends AppCompatActivity {
 
-    private SwitchMaterial mLowerCase, mUpperCase, mDigits, mSpecial, mBrackets, mSpaces;
+    private SwitchMaterial swLowerCase, swUpperCase, swDigits, swSpecial, swBrackets, swSpaces;
     private MaterialButton btAccept, btBack;
     private Slider slider;
-    private TextInputLayout mTextInputLayout;
+    private TextInputLayout tilPassword;
     private TextInputEditText etPasswordOutput;
     private CoordinatorLayout snackBar;
 
@@ -40,20 +39,20 @@ public class PassGeneratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_generator);
 
-        mLowerCase = findViewById(R.id.activity_pass_generator_sw_lower_case);
-        mUpperCase = findViewById(R.id.activity_pass_generator_sw_upper_case);
-        mDigits = findViewById(R.id.activity_pass_generator_sw_digits);
-        mSpecial = findViewById(R.id.activity_pass_generator_sw_special);
-        mBrackets = findViewById(R.id.activity_pass_generator_sw_brackets);
-        mSpaces = findViewById(R.id.activity_pass_generator_sw_spaces);
+        swLowerCase = findViewById(R.id.activity_pass_generator_sw_lower_case);
+        swUpperCase = findViewById(R.id.activity_pass_generator_sw_upper_case);
+        swDigits = findViewById(R.id.activity_pass_generator_sw_digits);
+        swSpecial = findViewById(R.id.activity_pass_generator_sw_special);
+        swBrackets = findViewById(R.id.activity_pass_generator_sw_brackets);
+        swSpaces = findViewById(R.id.activity_pass_generator_sw_spaces);
 
         etPasswordOutput = findViewById(R.id.activity_pass_generator_et_password);
         slider = findViewById(R.id.activity_pass_generator_slider);
 
         snackBar = findViewById(R.id.activity_pass_generator_coordinator_layout);
 
-        mTextInputLayout = findViewById(R.id.activity_pass_generator_til_password);
-        mTextInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+        tilPassword = findViewById(R.id.activity_pass_generator_til_password);
+        tilPassword.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 generatePassword(v);
@@ -96,27 +95,27 @@ public class PassGeneratorActivity extends AppCompatActivity {
         } else {
             String set = "";
 
-            if(mLowerCase.isChecked()) {
+            if(swLowerCase.isChecked()) {
                 set += lowers;
             }
 
-            if(mUpperCase.isChecked()) {
+            if(swUpperCase.isChecked()) {
                 set += capitals;
             }
 
-            if(mDigits.isChecked()) {
+            if(swDigits.isChecked()) {
                 set += digits;
             }
 
-            if(mSpecial.isChecked()) {
+            if(swSpecial.isChecked()) {
                 set += specials;
             }
 
-            if(mBrackets.isChecked()) {
+            if(swBrackets.isChecked()) {
                 set += brackets;
             }
 
-            if(mSpaces.isChecked()) {
+            if(swSpaces.isChecked()) {
                 set += " ";
             }
 
@@ -128,7 +127,7 @@ public class PassGeneratorActivity extends AppCompatActivity {
                 Snackbar.make(snackBar, "Please select at least one switch.", Snackbar.LENGTH_LONG)
                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                         .show();
-            } else if(size == 0 && mSpaces.isChecked()){
+            } else if(size == 0 && swSpaces.isChecked()){
                 Snackbar.make(snackBar, "Please select more switches than just the spaces switch.", Snackbar.LENGTH_LONG)
                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                         .show();
