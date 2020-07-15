@@ -44,13 +44,12 @@ public class AddPassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PassGeneratorActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 2);
             }
         });
     }
 
     public void save(View v) {
-
         String title = etTitle.getText().toString();
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
@@ -60,7 +59,6 @@ public class AddPassActivity extends AppCompatActivity {
             Toast.makeText(this, "One of the required fields were left blank", Toast.LENGTH_LONG).show();
         } else {
             PassObj passObj = new PassObj(-1, title, username, password, comments);
-            Toast.makeText(this, passObj.prettyPrint(), Toast.LENGTH_SHORT).show();
             Intent resultIntent = new Intent();
             resultIntent.putExtra("passObj", passObj);
             setResult(2, resultIntent);

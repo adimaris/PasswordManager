@@ -14,12 +14,14 @@ import com.alexanderdimaris.passwordmanager.R;
 import com.alexanderdimaris.passwordmanager.model.DataBaseHelper;
 import com.alexanderdimaris.passwordmanager.model.PassObj;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 public class PassListActivity extends AppCompatActivity {
 
-    FloatingActionButton mFAB;
-    CoordinatorLayout mSnackBarLayout;
-    DataBaseHelper mDataBaseHelper;
+    private FloatingActionButton mFAB;
+    private CoordinatorLayout mSnackBarLayout;
+    private DataBaseHelper mDataBaseHelper;
     private ListView mListView;
     private PasswordAdapter mPasswordAdapter;
 
@@ -29,7 +31,7 @@ public class PassListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pass_list);
 
         mFAB = findViewById(R.id.activity_pass_list_fab);
-        // mSnackBarLayout = findViewById(R.id.activity_pass_list_snackbar_layout);
+        mSnackBarLayout = findViewById(R.id.activity_pass_list_snackbar_layout);
         mListView = findViewById(R.id.activity_pass_list_lv);
         mDataBaseHelper = new DataBaseHelper(PassListActivity.this);
         updateList();
@@ -37,9 +39,6 @@ public class PassListActivity extends AppCompatActivity {
         mFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Snackbar snackbar = Snackbar.make(mSnackBarLayout, "You have clicked the FAB", Snackbar.LENGTH_LONG);
-//                snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
-//                snackbar.show();
                 Intent intent = new Intent(getApplicationContext(), AddPassActivity.class);
                 startActivityForResult(intent, 2);
             }
@@ -52,7 +51,16 @@ public class PassListActivity extends AppCompatActivity {
         if(requestCode == 2) {
             PassObj passObj = (PassObj) data.getExtras().getSerializable("passObj");
             boolean success = mDataBaseHelper.addOne(passObj);
-            updateList();
+            if(success) {
+                Snackbar.make(mSnackBarLayout, "Successfully added " +passObj.getTitle(), Snackbar.LENGTH_LONG)
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        .show();
+                updateList();
+            } else {
+                Snackbar.make(mSnackBarLayout, "Unable to add " +passObj.getTitle(), Snackbar.LENGTH_LONG)
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        .show();
+            }
         }
     }
 
