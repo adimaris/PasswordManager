@@ -113,7 +113,7 @@ public class ExistingPassActivity extends AppCompatActivity {
 
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("passObj", mPassObj);
-                    setResult(5, resultIntent);
+                    setResult(2, resultIntent);
                     finish();
                 }
             }
@@ -123,7 +123,7 @@ public class ExistingPassActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 2) {
+        if(requestCode == 1) {
             etPassword.setText(data.getStringExtra("generatedPassword"));
         }
     }

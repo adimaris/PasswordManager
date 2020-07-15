@@ -41,7 +41,7 @@ public class PassListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddPassActivity.class);
-                startActivityForResult(intent, 2);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -59,30 +59,32 @@ public class PassListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 2) {
+
+        if (resultCode != 0) {
             PassObj passObj = (PassObj) data.getExtras().getSerializable("passObj");
-            boolean success = mDataBaseHelper.addOne(passObj);
-            if(success) {
-                Snackbar.make(mSnackBarLayout, "Successfully added " +passObj.getTitle(), Snackbar.LENGTH_LONG)
-                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
-                        .show();
-                updateList();
-            } else {
-                Snackbar.make(mSnackBarLayout, "Unable to add " +passObj.getTitle(), Snackbar.LENGTH_LONG)
-                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
-                        .show();
+            boolean success = false;
+            String operation = "";
+
+            if(resultCode == 1) {
+                success = mDataBaseHelper.addOne(passObj);
+                operation = "add";
+            } else if (resultCode == 2) {
+                success = mDataBaseHelper.updateOne(passObj);
+                operation = "update";
+            } else if(resultCode == 3) {
+                success = mDataBaseHelper.deleteOne(passObj);
+                operation = "delete";
             }
-        } else if(resultCode == 3) {
-            PassObj passObj = (PassObj) data.getExtras().getSerializable("passObj");
-            boolean success = mDataBaseHelper.deleteOne(passObj);
-            Toast.makeText(this, "Success = " + success, Toast.LENGTH_LONG).show();
             updateList();
-        } else if (resultCode == 5) {
-            PassObj passObj = (PassObj) data.getExtras().getSerializable("passObj");
-            boolean success = mDataBaseHelper.updateOne(passObj);
-            Toast.makeText(this, "Success = " + success, Toast.LENGTH_LONG).show();
-            updateList();
+            buildSnackBarMessages(success, operation, passObj.getTitle());
         }
+    }
+
+    public void buildSnackBarMessages(boolean success, String op, String title) {
+        String result = (success == true) ? "COMPLETED" : "FAILED";
+        Snackbar.make(mSnackBarLayout, op + " operation for " + title + " " + result, Snackbar.LENGTH_LONG)
+                .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                .show();
     }
 
     private void updateList() {

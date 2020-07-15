@@ -1,6 +1,7 @@
 package com.alexanderdimaris.passwordmanager.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.widget.Toast;
 
 import com.alexanderdimaris.passwordmanager.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -32,12 +35,13 @@ public class PassGeneratorActivity extends AppCompatActivity {
 
     private MaterialButton btBack;
 
+    private CoordinatorLayout snackBar;
+
     private String lowers = "abcdefghijklmnopqrstuvwxyz";
     private String capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private String digits = "0123456789";
     private String specials = "!@#$%^&*_-+=";
     private String brackets = "(){}[]";
-
     private String result = "";
 
     @Override
@@ -56,6 +60,8 @@ public class PassGeneratorActivity extends AppCompatActivity {
         etLength = findViewById(R.id.activity_pass_generator_et_length);
         etPasswordOutput = findViewById(R.id.activity_pass_generator_et_password);
         btAccept = findViewById(R.id.activity_pass_generator_bt_accept);
+
+        snackBar = findViewById(R.id.activity_pass_generator_coordinator_layout);
 
         mTextInputLayout = findViewById(R.id.activity_pass_generator_til_password);
         mTextInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
@@ -88,11 +94,15 @@ public class PassGeneratorActivity extends AppCompatActivity {
         try {
             n = Integer.valueOf(etLength.getText().toString());
         } catch (Exception e) {
-            Toast.makeText(this, "Please type a length for the password", Toast.LENGTH_LONG).show(); // TODO change to snack bar
+            Snackbar.make(snackBar, "Please type a length for the password", Snackbar.LENGTH_LONG)
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                    .show();
         }
 
         if (n <= 0) {
-            Toast.makeText(this, "Please enter a length greater than zero for the password", Toast.LENGTH_SHORT).show(); //TODO snackbar
+            Snackbar.make(snackBar, "Please enter a length greater than zero for the password", Snackbar.LENGTH_LONG)
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                    .show();
         } else {
             String set = "";
 
@@ -103,8 +113,6 @@ public class PassGeneratorActivity extends AppCompatActivity {
             if(mUpperCase.isChecked()) {
                 set += capitals;
             }
-
-            // digi special bracktes spaces
 
             if(mDigits.isChecked()) {
                 set += digits;
@@ -126,20 +134,30 @@ public class PassGeneratorActivity extends AppCompatActivity {
             Random rand = new Random();
             int size = set.length()-1;
 
-            for(int i = 0; i < n; i++) {
-                int k = rand.nextInt(size);
-                sb.append(set.charAt(k));
-            }
+            if(size < 0) {
+                Snackbar.make(snackBar, "Please select at least one switch.", Snackbar.LENGTH_LONG)
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        .show();
+            } else if(size == 0 && mSpaces.isChecked()){
+                Snackbar.make(snackBar, "Please select more switches than just the spaces switch.", Snackbar.LENGTH_LONG)
+                        .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                        .show();
+            } else {
+                for(int i = 0; i < n; i++) {
+                    int k = rand.nextInt(size);
+                    sb.append(set.charAt(k));
+                }
 
-            result = sb.toString();
-            etPasswordOutput.setText(result);
+                result = sb.toString();
+                etPasswordOutput.setText(result);
+            }
         }
     }
 
     public void accept(View v) {
         Intent intent = new Intent();
         intent.putExtra("generatedPassword", result);
-        setResult(2, intent);
+        setResult(1, intent);
         finish();
     }
 }
