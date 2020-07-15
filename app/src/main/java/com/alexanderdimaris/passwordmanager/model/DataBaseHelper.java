@@ -57,11 +57,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean deleteOne(PassObj passwordObject) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM" + PASSWORD_TABLE + " WHERE " + COLUMN_ID + " = " + passwordObject.getId();
+        String queryString = "DELETE FROM " + PASSWORD_TABLE + " WHERE " + COLUMN_ID + " = " + passwordObject.getId();
         Cursor cursor = db.rawQuery(queryString, null);
 
         boolean success = cursor.moveToFirst();
-        // TODO determine if I should close here
 //        cursor.close();
 //        db.close();
 

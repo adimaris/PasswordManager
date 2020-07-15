@@ -27,6 +27,7 @@ public class ExistingPassActivity extends AppCompatActivity {
     private TextInputLayout tilPassword;
     private MaterialTextView tvTitle;
     private MaterialButton btEdit;
+    private MaterialButton btDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,17 @@ public class ExistingPassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 editClicked(v);
+            }
+        });
+
+        btDelete = findViewById(R.id.activity_existing_pass_bt_delete);
+        btDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("passObj", mPassObj);
+                setResult(3, resultIntent);
+                finish();
             }
         });
     }

@@ -51,7 +51,7 @@ public class PassListActivity extends AppCompatActivity {
                 PassObj selected = (PassObj) parent.getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(), ExistingPassActivity.class);
                 intent.putExtra("passObj", selected);
-                startActivityForResult(intent, 2);;
+                startActivityForResult(intent, 2);
             }
         });
     }
@@ -59,7 +59,7 @@ public class PassListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 2) {
+        if(resultCode == 2) {
             PassObj passObj = (PassObj) data.getExtras().getSerializable("passObj");
             boolean success = mDataBaseHelper.addOne(passObj);
             if(success) {
@@ -72,6 +72,10 @@ public class PassListActivity extends AppCompatActivity {
                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                         .show();
             }
+        } else if(resultCode == 3) {
+            PassObj passObj = (PassObj) data.getExtras().getSerializable("passObj");
+            boolean success = mDataBaseHelper.deleteOne(passObj); // always returns false but succ deletes
+            updateList();
         }
     }
 
