@@ -30,6 +30,8 @@ public class PassGeneratorActivity extends AppCompatActivity {
     private TextInputEditText etPasswordOutput;
     private MaterialButton btAccept;
 
+    private MaterialButton btBack;
+
     private String lowers = "abcdefghijklmnopqrstuvwxyz";
     private String capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private String digits = "0123456789";
@@ -67,6 +69,14 @@ public class PassGeneratorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 accept(btAccept);
+            }
+        });
+
+        btBack = findViewById(R.id.activity_pass_generator_bt_back);
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

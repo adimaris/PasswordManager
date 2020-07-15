@@ -17,8 +17,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 
 public class ExistingPassActivity extends AppCompatActivity {
-    // TODO add functionality for a delete button
-
     private PassObj mPassObj = null;
     private TextInputEditText etTitle;
     private TextInputEditText etUsername;
@@ -28,6 +26,7 @@ public class ExistingPassActivity extends AppCompatActivity {
     private MaterialTextView tvTitle;
     private MaterialButton btEdit;
     private MaterialButton btDelete;
+    private MaterialButton btBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +57,14 @@ public class ExistingPassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 editClicked(v);
+            }
+        });
+
+        btBack = findViewById(R.id.activity_existing_pass_bt_back);
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

@@ -72,15 +72,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void updateOne(PassObj passObj) { // TODO this is void and the other ones aren't void; is it a requirement to make these return void?
+    public boolean updateOne(PassObj passObj) {
         SQLiteDatabase db = this.getWritableDatabase();
-       // String queryString = "UPDATE " + PASSWORD_TABLE + " WHERE " + COLUMN_ID + " = "  + passObj.getId();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_TITLE_NAME, passObj.getTitle());
         cv.put(COLUMN_USERNAME, passObj.getUsername());
         cv.put(COLUMN_PASSWORD_TEXT, passObj.getPassword());
         cv.put(COLUMN_COMMENTS, passObj.getComments());
-        db.update(PASSWORD_TABLE, cv, "ID=" +passObj.getId(), null);
+        long update = db.update(PASSWORD_TABLE, cv, "ID=" +passObj.getId(), null);
+
+        if(update == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public ArrayList<PassObj> getAll() {

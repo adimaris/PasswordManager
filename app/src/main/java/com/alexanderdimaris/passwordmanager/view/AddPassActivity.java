@@ -17,6 +17,7 @@ public class AddPassActivity extends AppCompatActivity {
 
     TextInputEditText etTitle, etUsername, etPassword, etComments;
     MaterialButton btSave;
+    MaterialButton btBack;
 
     // TODO generate a password button
     // TODO snackbar
@@ -36,6 +37,14 @@ public class AddPassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 save(v);
+            }
+        });
+
+        btBack = findViewById(R.id.activity_add_pass_btn_back);
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

@@ -79,7 +79,8 @@ public class PassListActivity extends AppCompatActivity {
             updateList();
         } else if (resultCode == 5) {
             PassObj passObj = (PassObj) data.getExtras().getSerializable("passObj");
-            mDataBaseHelper.updateOne(passObj);
+            boolean success = mDataBaseHelper.updateOne(passObj);
+            Toast.makeText(this, "Success = " + success, Toast.LENGTH_LONG).show();
             updateList();
         }
     }
