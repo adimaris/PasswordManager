@@ -7,6 +7,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -41,6 +42,16 @@ public class PassListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddPassActivity.class);
                 startActivityForResult(intent, 2);
+            }
+        });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PassObj selected = (PassObj) parent.getItemAtPosition(position);
+                Intent intent = new Intent(getApplicationContext(), ExistingPassActivity.class);
+                intent.putExtra("passObj", selected);
+                startActivityForResult(intent, 2);;
             }
         });
     }
