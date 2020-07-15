@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.alexanderdimaris.passwordmanager.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.slider.Slider;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -22,8 +23,9 @@ public class PassGeneratorActivity extends AppCompatActivity {
 
     private SwitchMaterial mLowerCase, mUpperCase, mDigits, mSpecial, mBrackets, mSpaces;
     private MaterialButton btAccept, btBack;
+    private Slider slider;
     private TextInputLayout mTextInputLayout;
-    private TextInputEditText etLength, etPasswordOutput;
+    private TextInputEditText etPasswordOutput;
     private CoordinatorLayout snackBar;
 
     private String lowers = "abcdefghijklmnopqrstuvwxyz";
@@ -45,8 +47,8 @@ public class PassGeneratorActivity extends AppCompatActivity {
         mBrackets = findViewById(R.id.activity_pass_generator_sw_brackets);
         mSpaces = findViewById(R.id.activity_pass_generator_sw_spaces);
 
-        etLength = findViewById(R.id.activity_pass_generator_et_length);
         etPasswordOutput = findViewById(R.id.activity_pass_generator_et_password);
+        slider = findViewById(R.id.activity_pass_generator_slider);
 
         snackBar = findViewById(R.id.activity_pass_generator_coordinator_layout);
 
@@ -80,7 +82,7 @@ public class PassGeneratorActivity extends AppCompatActivity {
         int n = 0;
 
         try {
-            n = Integer.valueOf(etLength.getText().toString());
+            n = (int) slider.getValue();
         } catch (Exception e) {
             Snackbar.make(snackBar, "Please type a length for the password", Snackbar.LENGTH_LONG)
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
