@@ -74,7 +74,12 @@ public class PassListActivity extends AppCompatActivity {
             }
         } else if(resultCode == 3) {
             PassObj passObj = (PassObj) data.getExtras().getSerializable("passObj");
-            boolean success = mDataBaseHelper.deleteOne(passObj); // always returns false but succ deletes
+            boolean success = mDataBaseHelper.deleteOne(passObj);
+            Toast.makeText(this, "Success = " + success, Toast.LENGTH_LONG).show();
+            updateList();
+        } else if (resultCode == 5) {
+            PassObj passObj = (PassObj) data.getExtras().getSerializable("passObj");
+            mDataBaseHelper.updateOne(passObj);
             updateList();
         }
     }

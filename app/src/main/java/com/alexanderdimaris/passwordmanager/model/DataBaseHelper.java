@@ -48,6 +48,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_COMMENTS, passwordObject.getComments());
 
         long insert = db.insert(PASSWORD_TABLE, null, cv);
+        db.close(); // TODO does this fix the delete issues I'm having?
         if(insert == -1) {
             return false;
         } else {
@@ -61,14 +62,25 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(queryString, null);
 
         boolean success = cursor.moveToFirst();
-//        cursor.close();
-//        db.close();
+        cursor.close();
+        db.close();
 
         if(success) {
             return true;
         } else {
             return false;
         }
+    }
+
+    public void updateOne(PassObj passObj) { // TODO this is void and the other ones aren't void; is it a requirement to make these return void?
+        SQLiteDatabase db = this.getWritableDatabase();
+       // String queryString = "UPDATE " + PASSWORD_TABLE + " WHERE " + COLUMN_ID + " = "  + passObj.getId();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_TITLE_NAME, passObj.getTitle());
+        cv.put(COLUMN_USERNAME, passObj.getUsername());
+        cv.put(COLUMN_PASSWORD_TEXT, passObj.getPassword());
+        cv.put(COLUMN_COMMENTS, passObj.getComments());
+        db.update(PASSWORD_TABLE, cv, "ID=" +passObj.getId(), null);
     }
 
     public ArrayList<PassObj> getAll() {

@@ -106,7 +106,7 @@ public class ExistingPassActivity extends AppCompatActivity {
 
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("passObj", mPassObj);
-                    setResult(2, resultIntent);
+                    setResult(5, resultIntent);
                     finish();
                 }
             }
