@@ -48,7 +48,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_COMMENTS, passwordObject.getComments());
 
         long insert = db.insert(PASSWORD_TABLE, null, cv);
-        db.close(); // TODO does this fix the delete issues I'm having?
+        db.close();
         if(insert == -1) {
             return false;
         } else {
@@ -58,17 +58,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean deleteOne(PassObj passwordObject) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM " + PASSWORD_TABLE + " WHERE " + COLUMN_ID + " = " + passwordObject.getId();
-        Cursor cursor = db.rawQuery(queryString, null);
-
-        boolean success = cursor.moveToFirst();
-        cursor.close();
+        int delete =  db.delete(PASSWORD_TABLE, "ID = " +passwordObject.getId(), null);
         db.close();
 
-        if(success) {
-            return true;
-        } else {
+        if(delete == -1) {
             return false;
+        } else {
+            return true;
         }
     }
 
@@ -80,6 +76,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_PASSWORD_TEXT, passObj.getPassword());
         cv.put(COLUMN_COMMENTS, passObj.getComments());
         long update = db.update(PASSWORD_TABLE, cv, "ID=" +passObj.getId(), null);
+        db.close();
 
         if(update == -1) {
             return false;
