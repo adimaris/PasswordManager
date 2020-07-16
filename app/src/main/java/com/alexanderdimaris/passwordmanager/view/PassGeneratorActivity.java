@@ -18,7 +18,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Random;
 
-public class PassGeneratorActivity extends AppCompatActivity {
+public class PassGeneratorActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SwitchMaterial swLowerCase, swUpperCase, swDigits, swSpecial, swBrackets, swSpaces;
     private MaterialButton btAccept, btBack;
@@ -48,7 +48,6 @@ public class PassGeneratorActivity extends AppCompatActivity {
 
         etPasswordOutput = findViewById(R.id.activity_pass_generator_et_password);
         slider = findViewById(R.id.activity_pass_generator_slider);
-
         snackBar = findViewById(R.id.activity_pass_generator_coordinator_layout);
 
         tilPassword = findViewById(R.id.activity_pass_generator_til_password);
@@ -59,21 +58,32 @@ public class PassGeneratorActivity extends AppCompatActivity {
             }
         });
 
-        btAccept = findViewById(R.id.activity_pass_generator_bt_accept);
-        btAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                accept(btAccept);
-            }
-        });
-
         btBack = findViewById(R.id.activity_pass_generator_bt_back);
-        btBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btBack.setOnClickListener(this);
+        btAccept = findViewById(R.id.activity_pass_generator_bt_accept);
+        btAccept.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.activity_pass_generator_bt_back:
                 finish();
-            }
-        });
+                break;
+
+            case R.id.activity_pass_generator_bt_accept:
+                accept();
+                break;
+
+//            case R.id.activity_add_pass_til_password:
+//
+//                break;
+
+            default:
+                break;
+        }
+
     }
 
     public void generatePassword(View v) {
@@ -143,10 +153,16 @@ public class PassGeneratorActivity extends AppCompatActivity {
         }
     }
 
-    public void accept(View v) {
-        Intent intent = new Intent();
-        intent.putExtra("generatedPassword", result);
-        setResult(1, intent);
-        finish();
+    public void accept() {
+        if(etPasswordOutput.getText().toString().length() == 0) {
+            Snackbar.make(snackBar, "Cannot accept an empty password.", Snackbar.LENGTH_LONG)
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                    .show();
+        } else {
+            Intent intent = new Intent();
+            intent.putExtra("generatedPassword", result);
+            setResult(1, intent);
+            finish();
+        }
     }
 }

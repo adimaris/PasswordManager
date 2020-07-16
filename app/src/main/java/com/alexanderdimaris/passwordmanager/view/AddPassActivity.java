@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class AddPassActivity extends AppCompatActivity {
+public class AddPassActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextInputEditText etTitle, etUsername, etPassword, etComments;
     MaterialButton btSave;
@@ -35,33 +35,40 @@ public class AddPassActivity extends AppCompatActivity {
         etComments = findViewById(R.id.activity_add_pass_et_comments);
         snackBar = findViewById(R.id.activity_add_pass_coordinator_layout);
 
-        btSave = findViewById(R.id.activity_add_pass_btn_save);
-        btSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                save(v);
-            }
-        });
-
         btBack = findViewById(R.id.activity_add_pass_btn_back);
-        btBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btBack.setOnClickListener(this);
+
+        btSave = findViewById(R.id.activity_add_pass_btn_save);
+        btSave.setOnClickListener(this);
 
         TextInputLayout textInputLayout = findViewById(R.id.activity_add_pass_til_password);
-        textInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PassGeneratorActivity.class);
-                startActivityForResult(intent, 1);
-            }
-        });
+        textInputLayout.setEndIconOnClickListener(this);
     }
 
-    public void save(View v) {
+    @Override
+    public void onClick(View v) {
+
+        switch(v.getId()) {
+
+            case R.id.activity_add_pass_btn_back:
+                finish();
+                break;
+
+            case R.id.activity_add_pass_btn_save:
+                save();
+                break;
+
+            case R.id.text_input_end_icon:
+                Intent intent = new Intent(getApplicationContext(), PassGeneratorActivity.class);
+                startActivityForResult(intent, 1);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void save() {
         String title = etTitle.getText().toString();
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
@@ -88,5 +95,4 @@ public class AddPassActivity extends AppCompatActivity {
             etPassword.setInputType(InputType.TYPE_CLASS_TEXT);
         }
     }
-
 }

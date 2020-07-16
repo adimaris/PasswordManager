@@ -30,13 +30,11 @@ public class PassListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_list);
 
-        fab = findViewById(R.id.activity_pass_list_fab);
         snackBarLayout = findViewById(R.id.activity_pass_list_snackbar_layout);
-        listView = findViewById(R.id.activity_pass_list_lv);
         dataBaseHelper = new DataBaseHelper(PassListActivity.this);
-
         updateList();
 
+        fab = findViewById(R.id.activity_pass_list_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +43,7 @@ public class PassListActivity extends AppCompatActivity {
             }
         });
 
+        listView = findViewById(R.id.activity_pass_list_lv);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
