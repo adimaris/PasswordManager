@@ -12,10 +12,16 @@
         android:id="@+id/activity_add_pass_btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="BACK"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:minWidth="0dp"
         app:icon="@drawable/baseline_arrow_back_ios_black_18dp"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,9 +44,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="SAVE"
+        android:layout_marginEnd="16dp"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:minWidth="0dp"
         app:icon="@drawable/baseline_save_black_18dp"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,7 +86,8 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_columnWeight="1"
-            android:gravity="center|right"
+            android:gravity="top|right"
+            android:paddingTop="18dp"
             android:paddingRight="16dp"
             android:text="Title" />
 
@@ -83,17 +96,20 @@
             android:layout_row="0"
             android:layout_rowWeight="1"
             android:layout_column="1"
-            android:layout_columnWeight="1"
+            android:layout_columnWeight="2"
+            android:layout_height="50dp"
             app:counterEnabled="true"
-            app:counterMaxLength="30"
+            app:counterMaxLength="20"
             app:errorEnabled="true"
-            app:helperText="Type entry title here">
+            android:hint="Type title here"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/activity_add_pass_et_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="wrap_content"
+                android:maxLength="21"
+                android:gravity="bottom" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -103,7 +119,8 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_columnWeight="1"
-            android:gravity="center|right"
+            android:gravity="top|right"
+            android:paddingTop="18dp"
             android:paddingRight="16dp"
             android:text="Username" />
 
@@ -114,14 +131,18 @@
             android:layout_column="1"
             android:layout_columnWeight="1"
             app:counterEnabled="true"
-            app:counterMaxLength="30"
+            android:layout_height="50dp"
+            app:counterMaxLength="20"
             app:errorEnabled="true"
-            app:helperText="Type username here">
+            android:hint="Type username here"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/activity_add_pass_et_username"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:maxLength="21"
+                android:gravity="bottom" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,7 +152,8 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_columnWeight="1"
-            android:gravity="center|right"
+            android:paddingTop="18dp"
+            android:gravity="top|right"
             android:paddingRight="16dp"
             android:text="Password" />
 
@@ -144,13 +166,20 @@
             android:outlineAmbientShadowColor="@color/colorPrimary"
             app:endIconDrawable="@drawable/ic_baseline_build_24"
             app:endIconMode="custom"
-            app:helperText="Type password here">
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:errorEnabled="true"
+            android:hint="Type password here"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/activity_add_pass_et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:maxLength="21"
+                android:inputType="textVisiblePassword"
+                android:gravity="bottom"
+                android:paddingTop="16dp"/>
         </com.google.android.material.textfield.TextInputLayout>
     </GridLayout>
 

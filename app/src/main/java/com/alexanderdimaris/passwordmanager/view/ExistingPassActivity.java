@@ -110,7 +110,6 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void edit(View v) {
-        btEdit.setText("SAVE");
         btEdit.setIconResource(R.drawable.baseline_save_black_18dp);
         etTitle.setEnabled(true);
         etUsername.setEnabled(true);
@@ -137,6 +136,11 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
 
         if (title.equals("") || username.equals("") || password.equals("")) {
             Snackbar.make(snackBar, "A required field was left blank. Please try again.", Snackbar.LENGTH_LONG)
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                    .setAnchorView(btDelete)
+                    .show();
+        } else if(title.length() > 20 || username.length() > 20 || password.length() > 20) {
+            Snackbar.make(snackBar, "Required field is too long.", Snackbar.LENGTH_LONG)
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .setAnchorView(btDelete)
                     .show();

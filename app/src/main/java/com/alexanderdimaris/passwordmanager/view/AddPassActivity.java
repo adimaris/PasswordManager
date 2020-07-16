@@ -78,6 +78,10 @@ public class AddPassActivity extends AppCompatActivity implements View.OnClickLi
             Snackbar.make(snackBar, "A required field was left blank. Please try again.", Snackbar.LENGTH_LONG)
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .show();
+        } else if(title.length() > 20 || username.length() > 20 || password.length() > 20) {
+            Snackbar.make(snackBar, "Required field is too long.", Snackbar.LENGTH_LONG)
+                    .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                    .show();
         } else {
             PassObj passObj = new PassObj(-1, title, username, password, comments);
             Intent resultIntent = new Intent();
