@@ -32,7 +32,6 @@ public class PassListActivity extends AppCompatActivity {
 
         snackBarLayout = findViewById(R.id.activity_pass_list_snackbar_layout);
         dataBaseHelper = new DataBaseHelper(PassListActivity.this);
-        updateList();
 
         fab = findViewById(R.id.activity_pass_list_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +52,7 @@ public class PassListActivity extends AppCompatActivity {
                 startActivityForResult(intent, 2);
             }
         });
+        updateList();
     }
 
     @Override
@@ -76,10 +76,9 @@ public class PassListActivity extends AppCompatActivity {
             }
             updateList();
 
-            if(success == false) {
+            if(!success) {
                 Snackbar.make(snackBarLayout, operation + " operation for " + passObj.getTitle() + " failed", Snackbar.LENGTH_LONG)
                         .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
-                        .setAnchorView(fab)
                         .show();
             }
         }

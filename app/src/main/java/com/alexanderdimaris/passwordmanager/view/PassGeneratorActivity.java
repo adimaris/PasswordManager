@@ -66,7 +66,6 @@ public class PassGeneratorActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.activity_pass_generator_bt_back:
                 finish();
@@ -76,14 +75,9 @@ public class PassGeneratorActivity extends AppCompatActivity implements View.OnC
                 accept();
                 break;
 
-//            case R.id.activity_add_pass_til_password:
-//
-//                break;
-
             default:
                 break;
         }
-
     }
 
     public void generatePassword(View v) {
