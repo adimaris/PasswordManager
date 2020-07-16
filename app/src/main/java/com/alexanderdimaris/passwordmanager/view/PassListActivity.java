@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.alexanderdimaris.passwordmanager.R;
 import com.alexanderdimaris.passwordmanager.model.DataBaseHelper;
 import com.alexanderdimaris.passwordmanager.model.PassObj;
+import com.alexanderdimaris.passwordmanager.model.SimpleCrypto;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -65,6 +66,12 @@ public class PassListActivity extends AppCompatActivity {
             String operation = "";
 
             if(resultCode == 1) {
+                SimpleCrypto mcrypt = new SimpleCrypto();
+                try {
+                    passObj.setPassword(SimpleCrypto.bytesToHex(mcrypt.encrypt(passObj.getPassword())));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 success = dataBaseHelper.addOne(passObj);
                 operation = "add";
             } else if (resultCode == 2) {

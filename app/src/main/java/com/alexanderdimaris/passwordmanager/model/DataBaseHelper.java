@@ -100,6 +100,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String comments = cursor.getString(4);
 
                 PassObj newPassword = new PassObj(passwordId, passwordTitle, username, password, comments);
+                SimpleCrypto mcrypt = new SimpleCrypto();
+                try {
+                    newPassword.setPassword(new String(mcrypt.decrypt(newPassword.getPassword())));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 returnList.add(newPassword);
             } while(cursor.moveToNext());
         } else {
