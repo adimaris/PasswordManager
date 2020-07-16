@@ -60,7 +60,7 @@ public class PassListActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode != 0) {
-            PassObj passObj = (PassObj) data.getExtras().getSerializable("passObj");
+            PassObj passObj = data.getParcelableExtra("passObj");
             boolean success = false;
             String operation = "";
 

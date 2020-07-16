@@ -1,8 +1,9 @@
 package com.alexanderdimaris.passwordmanager.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class PassObj implements Serializable {
+public class PassObj implements Parcelable {
 
     private int id;
     private String title;
@@ -62,4 +63,41 @@ public class PassObj implements Serializable {
         return "Title=" + this.getTitle() + " Username=" + this.getUsername() + " Password=" + this.getPassword() + " Comments=" + this.getComments();
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        //write all properties to the parcle
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeString(username);
+        dest.writeString(password);
+        dest.writeString(comments);
+    }
+
+    //constructor used for parcel
+    public PassObj(Parcel parcel) {
+        id = parcel.readInt();
+        title = parcel.readString();
+        username = parcel.readString();
+        password = parcel.readString();
+        comments = parcel.readString();
+    }
+
+    //creator - used when un-parceling our parcle (creating the object)
+    public static final Parcelable.Creator<PassObj> CREATOR = new Parcelable.Creator<PassObj>() {
+
+        @Override
+        public PassObj createFromParcel(Parcel parcel) {
+            return new PassObj(parcel);
+        }
+
+        @Override
+        public PassObj[] newArray(int size) {
+            return new PassObj[0];
+        }
+    };
+
+    //return hashcode of object
+    public int describeContents() {
+        return hashCode();
+    }
 }
