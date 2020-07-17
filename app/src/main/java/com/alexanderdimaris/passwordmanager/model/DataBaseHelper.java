@@ -15,8 +15,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USERNAME = "COLUMN_USERNAME";
     private static final String COLUMN_PASSWORD_TEXT = "COLUMN_PASSWORD_TEXT";
     private static final String COLUMN_COMMENTS = "COLUMN_COMMENTS";
-    private static final String COLUMN_ID = "ID";
-
+    private SimpleCrypto simpleCrypto = new SimpleCrypto();
 
     public DataBaseHelper(@Nullable Context context) {
         super(context, "password.db", null, 1);
@@ -38,22 +37,24 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         // intentionally left blank
     }
 
-    public boolean addOne(PassObj passwordObject) {
+    public boolean addOne(PassObj passObj) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_TITLE_NAME, passwordObject.getTitle());
-        cv.put(COLUMN_USERNAME, passwordObject.getUsername());
-        cv.put(COLUMN_PASSWORD_TEXT, passwordObject.getPassword());
-        cv.put(COLUMN_COMMENTS, passwordObject.getComments());
+        try {
+            passObj.setPassword(SimpleCrypto.bytesToHex(simpleCrypto.encrypt(passObj.getPassword())));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        cv.put(COLUMN_TITLE_NAME, passObj.getTitle());
+        cv.put(COLUMN_USERNAME, passObj.getUsername());
+        cv.put(COLUMN_PASSWORD_TEXT, passObj.getPassword());
+        cv.put(COLUMN_COMMENTS, passObj.getComments());
 
         long insert = db.insert(PASSWORD_TABLE, null, cv);
         db.close();
-        if(insert == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        return insert != -1;
     }
 
     public boolean deleteOne(PassObj passwordObject) {
@@ -61,16 +62,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         int delete =  db.delete(PASSWORD_TABLE, "ID = " +passwordObject.getId(), null);
         db.close();
 
-        if(delete == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        return delete != -1;
     }
 
     public boolean updateOne(PassObj passObj) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+
+        try {
+            passObj.setPassword(SimpleCrypto.bytesToHex(simpleCrypto.encrypt(passObj.getPassword())));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         cv.put(COLUMN_TITLE_NAME, passObj.getTitle());
         cv.put(COLUMN_USERNAME, passObj.getUsername());
         cv.put(COLUMN_PASSWORD_TEXT, passObj.getPassword());
@@ -78,11 +82,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         long update = db.update(PASSWORD_TABLE, cv, "ID=" +passObj.getId(), null);
         db.close();
 
-        if(update == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        return update != -1;
     }
 
     public ArrayList<PassObj> getAll() {
@@ -100,16 +100,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String comments = cursor.getString(4);
 
                 PassObj newPassword = new PassObj(passwordId, passwordTitle, username, password, comments);
-                SimpleCrypto mcrypt = new SimpleCrypto();
                 try {
-                    newPassword.setPassword(new String(mcrypt.decrypt(newPassword.getPassword())));
+                    newPassword.setPassword(new String(simpleCrypto.decrypt(newPassword.getPassword())));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 returnList.add(newPassword);
             } while(cursor.moveToNext());
-        } else {
-            // intentionally left blank
         }
         cursor.close();
         db.close();
@@ -131,16 +128,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String comments = cursor.getString(4);
 
                 PassObj newPassword = new PassObj(passwordId, passwordTitle, username, password, comments);
-                SimpleCrypto mcrypt = new SimpleCrypto();
                 try {
-                    newPassword.setPassword(new String(mcrypt.decrypt(newPassword.getPassword())));
+                    newPassword.setPassword(new String(simpleCrypto.decrypt(newPassword.getPassword())));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 returnList.add(newPassword);
             } while(cursor.moveToNext());
-        } else {
-            // intentionally left blank
         }
         cursor.close();
         db.close();

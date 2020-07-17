@@ -95,6 +95,7 @@ public class AddPassActivity extends AppCompatActivity implements View.OnClickLi
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == 1) {
+            assert data != null;
             etPassword.setText(data.getStringExtra("generatedPassword"));
             etPassword.setInputType(InputType.TYPE_CLASS_TEXT);
         }

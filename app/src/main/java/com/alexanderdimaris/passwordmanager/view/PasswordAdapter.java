@@ -19,7 +19,7 @@ import java.util.List;
 public class PasswordAdapter extends ArrayAdapter<PassObj> {
 
     private Context context;
-    private List<PassObj> passwordList = new ArrayList<>();
+    private List<PassObj> passwordList;
 
     public PasswordAdapter(Context context, ArrayList<PassObj> passwords) {
         super(context, 0, passwords);

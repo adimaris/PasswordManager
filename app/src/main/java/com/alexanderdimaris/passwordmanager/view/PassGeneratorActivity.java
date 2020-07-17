@@ -21,17 +21,9 @@ import java.util.Random;
 public class PassGeneratorActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SwitchMaterial swLowerCase, swUpperCase, swDigits, swSpecial, swBrackets, swSpaces;
-    private MaterialButton btAccept, btBack;
     private Slider slider;
-    private TextInputLayout tilPassword;
     private TextInputEditText etPasswordOutput;
     private CoordinatorLayout snackBar;
-
-    private String lowers = "abcdefghijklmnopqrstuvwxyz";
-    private String capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private String digits = "0123456789";
-    private String specials = "!@#$%^&*_-+=";
-    private String brackets = "(){}[]";
     private String result = "";
 
     @Override
@@ -50,7 +42,7 @@ public class PassGeneratorActivity extends AppCompatActivity implements View.OnC
         slider = findViewById(R.id.activity_pass_generator_slider);
         snackBar = findViewById(R.id.activity_pass_generator_coordinator_layout);
 
-        tilPassword = findViewById(R.id.activity_pass_generator_til_password);
+        TextInputLayout tilPassword = findViewById(R.id.activity_pass_generator_til_password);
         tilPassword.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,9 +50,9 @@ public class PassGeneratorActivity extends AppCompatActivity implements View.OnC
             }
         });
 
-        btBack = findViewById(R.id.activity_pass_generator_bt_back);
+        MaterialButton btBack = findViewById(R.id.activity_pass_generator_bt_back);
         btBack.setOnClickListener(this);
-        btAccept = findViewById(R.id.activity_pass_generator_bt_accept);
+        MaterialButton btAccept = findViewById(R.id.activity_pass_generator_bt_accept);
         btAccept.setOnClickListener(this);
     }
 
@@ -100,23 +92,23 @@ public class PassGeneratorActivity extends AppCompatActivity implements View.OnC
             String set = "";
 
             if(swLowerCase.isChecked()) {
-                set += lowers;
+                set += "abcdefghijklmnopqrstuvwxyz";
             }
 
             if(swUpperCase.isChecked()) {
-                set += capitals;
+                set += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             }
 
             if(swDigits.isChecked()) {
-                set += digits;
+                set += "0123456789";
             }
 
             if(swSpecial.isChecked()) {
-                set += specials;
+                set += "!@#$%^&*_-+=";
             }
 
             if(swBrackets.isChecked()) {
-                set += brackets;
+                set += "(){}[]";
             }
 
             if(swSpaces.isChecked()) {

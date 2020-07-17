@@ -24,8 +24,8 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
     private PassObj passObj = null;
     private TextInputEditText etTitle, etUsername, etPassword, etComments;
     private TextInputLayout tilPassword;
-    private MaterialTextView tvTitle;
-    private MaterialButton btEdit, btDelete, btBack;
+    private MaterialButton btEdit;
+    private MaterialButton btDelete;
     private CoordinatorLayout snackBar;
 
     @Override
@@ -38,7 +38,7 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
         etPassword = findViewById(R.id.activity_existing_pass_et_password);
         etComments = findViewById(R.id.activity_existing_pass_et_comment);
         tilPassword = findViewById(R.id.activity_existing_pass_til_password);
-        tvTitle = findViewById(R.id.activity_existing_pass_tv_title);
+        MaterialTextView tvTitle = findViewById(R.id.activity_existing_pass_tv_title);
         snackBar = findViewById(R.id.activity_existing_pass_coordinator_layout);
 
         Intent intent = getIntent();
@@ -50,7 +50,7 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
         etComments.setText(passObj.getComments());
         tvTitle.setText(passObj.getTitle());
 
-        btBack = findViewById(R.id.activity_existing_pass_bt_back);
+        MaterialButton btBack = findViewById(R.id.activity_existing_pass_bt_back);
         btBack.setOnClickListener(this);
         btEdit = findViewById(R.id.activity_existing_pass_bt_edit);
         btEdit.setOnClickListener(this);
@@ -161,6 +161,7 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == 1) {
+            assert data != null;
             etPassword.setText(data.getStringExtra("generatedPassword"));
         }
     }

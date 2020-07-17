@@ -59,13 +59,8 @@ public class PassObj implements Parcelable {
         this.comments = comments;
     }
 
-    public String prettyPrint() {
-        return "Title=" + this.getTitle() + " Username=" + this.getUsername() + " Password=" + this.getPassword() + " Comments=" + this.getComments();
-    }
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        //write all properties to the parcle
         dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(username);
@@ -73,7 +68,6 @@ public class PassObj implements Parcelable {
         dest.writeString(comments);
     }
 
-    //constructor used for parcel
     public PassObj(Parcel parcel) {
         id = parcel.readInt();
         title = parcel.readString();
@@ -82,7 +76,6 @@ public class PassObj implements Parcelable {
         comments = parcel.readString();
     }
 
-    //creator - used when un-parceling our parcle (creating the object)
     public static final Parcelable.Creator<PassObj> CREATOR = new Parcelable.Creator<PassObj>() {
 
         @Override
@@ -96,7 +89,6 @@ public class PassObj implements Parcelable {
         }
     };
 
-    //return hashcode of object
     public int describeContents() {
         return hashCode();
     }

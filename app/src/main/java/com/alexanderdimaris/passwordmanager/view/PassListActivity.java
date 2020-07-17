@@ -1,9 +1,5 @@
 package com.alexanderdimaris.passwordmanager.view;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +7,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import com.alexanderdimaris.passwordmanager.R;
 import com.alexanderdimaris.passwordmanager.model.PassObj;
-import com.alexanderdimaris.passwordmanager.model.SimpleCrypto;
 import com.alexanderdimaris.passwordmanager.presenter.MainActivityPresenter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -24,18 +23,15 @@ import java.util.ArrayList;
 public class PassListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, MainActivityPresenter.View {
 
     private MainActivityPresenter presenter;
-    private FloatingActionButton fab;
     private CoordinatorLayout snackBarLayout;
     private ListView listView;
-    private PasswordAdapter passwordAdapter;
-    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_list);
 
-        fab = findViewById(R.id.activity_pass_list_fab);
+        FloatingActionButton fab = findViewById(R.id.activity_pass_list_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +52,7 @@ public class PassListActivity extends AppCompatActivity implements SearchView.On
         });
 
         snackBarLayout = findViewById(R.id.activity_pass_list_snackbar_layout);
-        searchView = findViewById(R.id.activity_pass_list_search);
+        SearchView searchView = findViewById(R.id.activity_pass_list_search);
         searchView.setOnQueryTextListener(this);
         presenter = new MainActivityPresenter(this, PassListActivity.this);
     }
@@ -66,14 +62,8 @@ public class PassListActivity extends AppCompatActivity implements SearchView.On
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode != 0) {
+            assert data != null;
             PassObj passObj = data.getParcelableExtra("passObj");
-            SimpleCrypto mcrypt = new SimpleCrypto();
-
-            try {
-                passObj.setPassword(SimpleCrypto.bytesToHex(mcrypt.encrypt(passObj.getPassword())));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             if(resultCode == 1) {
                 presenter.addToDatabase(passObj);
@@ -98,7 +88,7 @@ public class PassListActivity extends AppCompatActivity implements SearchView.On
 
     @Override
     public void updateDisplay(ArrayList<PassObj> list) {
-        passwordAdapter = new PasswordAdapter(this, list);
+        PasswordAdapter passwordAdapter = new PasswordAdapter(this, list);
         listView.setAdapter(passwordAdapter);
     }
 
