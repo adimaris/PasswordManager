@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Password Manager</string>
+    <string name="new_entry">New Entry</string>
+    <string name="title">Title</string>
+    <string name="type_title_here">Type title here</string>
+    <string name="username">Username</string>
+    <string name="type_username_here">Type username here</string>
+    <string name="password">Password</string>
+    <string name="type_password_here">Type password here</string>
+    <string name="comments">Comments</string>
+    <string name="password_manager">Password Manager</string>
 </resources>
