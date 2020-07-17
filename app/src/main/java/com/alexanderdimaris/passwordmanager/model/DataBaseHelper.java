@@ -118,7 +118,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<PassObj> search(String search) {
         ArrayList<PassObj> returnList = new ArrayList<>();
-        String queryString = "SELECT * FROM " + PASSWORD_TABLE + " WHERE " + COLUMN_TITLE_NAME + " LIKE '%" + search + "%'";
+        String queryString = "SELECT * FROM " + PASSWORD_TABLE + " WHERE " + COLUMN_TITLE_NAME + " LIKE '%" + search + "%'" + " ORDER BY " + COLUMN_TITLE_NAME + " COLLATE NOCASE ASC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
 
