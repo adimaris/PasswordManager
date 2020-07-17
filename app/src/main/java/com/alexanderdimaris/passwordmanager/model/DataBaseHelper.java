@@ -15,7 +15,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USERNAME = "COLUMN_USERNAME";
     private static final String COLUMN_PASSWORD_TEXT = "COLUMN_PASSWORD_TEXT";
     private static final String COLUMN_COMMENTS = "COLUMN_COMMENTS";
-    private SimpleCrypto simpleCrypto = new SimpleCrypto();
 
     public DataBaseHelper(@Nullable Context context) {
         super(context, "password.db", null, 1);
@@ -40,6 +39,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public boolean addOne(PassObj passObj) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        SimpleCrypto simpleCrypto = new SimpleCrypto();
 
         try {
             passObj.setPassword(SimpleCrypto.bytesToHex(simpleCrypto.encrypt(passObj.getPassword())));
@@ -68,6 +68,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public boolean updateOne(PassObj passObj) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        SimpleCrypto simpleCrypto = new SimpleCrypto();
 
         try {
             passObj.setPassword(SimpleCrypto.bytesToHex(simpleCrypto.encrypt(passObj.getPassword())));
@@ -90,6 +91,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String queryString = "SELECT * FROM " + PASSWORD_TABLE + " ORDER BY " + COLUMN_TITLE_NAME + " COLLATE NOCASE ASC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
+        SimpleCrypto simpleCrypto = new SimpleCrypto();
 
         if(cursor.moveToFirst()) {
             do {
@@ -118,6 +120,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String queryString = "SELECT * FROM " + PASSWORD_TABLE + " WHERE " + COLUMN_TITLE_NAME + " LIKE '%" + search + "%'" + " ORDER BY " + COLUMN_TITLE_NAME + " COLLATE NOCASE ASC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
+        SimpleCrypto simpleCrypto = new SimpleCrypto();
 
         if(cursor.moveToFirst()) {
             do {

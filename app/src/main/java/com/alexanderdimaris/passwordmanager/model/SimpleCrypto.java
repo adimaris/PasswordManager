@@ -32,7 +32,7 @@ public class SimpleCrypto {
 
         try {
             cipher.init(Cipher.ENCRYPT_MODE, keyspec, ivspec);
-            encrypted = cipher.doFinal(padString(text).getBytes());
+            encrypted = cipher.doFinal(text.getBytes());
         } catch (Exception e) {
             throw new Exception("[encrypt] " + e.getMessage());
         }
@@ -81,19 +81,5 @@ public class SimpleCrypto {
             }
             return buffer;
         }
-    }
-
-    private static String padString(String source) {
-        char paddingChar = ' ';
-        int size = 16;
-        int x = source.length() % size;
-        int padLength = size - x;
-
-        StringBuilder sourceBuilder = new StringBuilder(source);
-        for (int i = 0; i < padLength; i++) {
-            sourceBuilder.append(paddingChar);
-        }
-        source = sourceBuilder.toString();
-        return source;
     }
 }
