@@ -87,7 +87,38 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<PassObj> getAll() {
         ArrayList<PassObj> returnList = new ArrayList<>();
-        String queryString = "SELECT * FROM " + PASSWORD_TABLE;
+        String queryString = "SELECT * FROM " + PASSWORD_TABLE + " ORDER BY " + COLUMN_TITLE_NAME + " COLLATE NOCASE ASC";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int passwordId = cursor.getInt(0);
+                String passwordTitle = cursor.getString(1);
+                String username = cursor.getString(2);
+                String password = cursor.getString(3);
+                String comments = cursor.getString(4);
+
+                PassObj newPassword = new PassObj(passwordId, passwordTitle, username, password, comments);
+                SimpleCrypto mcrypt = new SimpleCrypto();
+                try {
+                    newPassword.setPassword(new String(mcrypt.decrypt(newPassword.getPassword())));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                returnList.add(newPassword);
+            } while(cursor.moveToNext());
+        } else {
+            // intentionally left blank
+        }
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+
+    public ArrayList<PassObj> search(String search) {
+        ArrayList<PassObj> returnList = new ArrayList<>();
+        String queryString = "SELECT * FROM " + PASSWORD_TABLE + " WHERE " + COLUMN_TITLE_NAME + " LIKE '%" + search + "%'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
 

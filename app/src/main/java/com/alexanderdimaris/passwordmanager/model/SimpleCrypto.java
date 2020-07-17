@@ -22,10 +22,8 @@ public class SimpleCrypto {
         try {
             cipher = Cipher.getInstance("AES/CBC/NoPadding");
         } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (NoSuchPaddingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -58,7 +56,6 @@ public class SimpleCrypto {
         return decrypted;
     }
 
-
     public static String bytesToHex(byte[] data) {
         if (data == null) {
             return null;
@@ -75,7 +72,6 @@ public class SimpleCrypto {
         return str;
     }
 
-
     public static byte[] hexToBytes(String str) {
         if (str == null) {
             return null;
@@ -90,7 +86,6 @@ public class SimpleCrypto {
             return buffer;
         }
     }
-
 
     private static String padString(String source) {
         char paddingChar = ' ';
