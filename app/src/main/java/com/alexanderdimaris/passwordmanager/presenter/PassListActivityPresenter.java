@@ -5,11 +5,11 @@ import com.alexanderdimaris.passwordmanager.model.DataBaseHelper;
 import com.alexanderdimaris.passwordmanager.model.PassObj;
 import java.util.ArrayList;
 
-public class MainActivityPresenter {
+public class PassListActivityPresenter {
     private View view;
     private DataBaseHelper dataBaseHelper;
 
-    public MainActivityPresenter(View view, Context context) {
+    public PassListActivityPresenter(View view, Context context) {
         this.view = view;
         this.dataBaseHelper = new DataBaseHelper(context);
         view.updateDisplay(dataBaseHelper.getAll());

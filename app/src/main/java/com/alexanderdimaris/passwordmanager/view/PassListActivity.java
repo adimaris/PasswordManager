@@ -13,16 +13,16 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.alexanderdimaris.passwordmanager.R;
 import com.alexanderdimaris.passwordmanager.model.PassObj;
-import com.alexanderdimaris.passwordmanager.presenter.MainActivityPresenter;
+import com.alexanderdimaris.passwordmanager.presenter.PassListActivityPresenter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class PassListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, MainActivityPresenter.View {
+public class PassListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, PassListActivityPresenter.View {
 
-    private MainActivityPresenter presenter;
+    private PassListActivityPresenter presenter;
     private CoordinatorLayout snackBarLayout;
     private ListView listView;
 
@@ -54,7 +54,7 @@ public class PassListActivity extends AppCompatActivity implements SearchView.On
         snackBarLayout = findViewById(R.id.activity_pass_list_snackbar_layout);
         SearchView searchView = findViewById(R.id.activity_pass_list_search);
         searchView.setOnQueryTextListener(this);
-        presenter = new MainActivityPresenter(this, PassListActivity.this);
+        presenter = new PassListActivityPresenter(this, PassListActivity.this);
     }
 
     @Override
