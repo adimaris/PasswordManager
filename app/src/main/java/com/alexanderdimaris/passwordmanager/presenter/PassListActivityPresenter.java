@@ -9,9 +9,9 @@ public class PassListActivityPresenter {
     private View view;
     private DataBaseHelper dataBaseHelper;
 
-    public PassListActivityPresenter(View view, Context context) {
+    public PassListActivityPresenter(View view) {
         this.view = view;
-        this.dataBaseHelper = new DataBaseHelper(context);
+        this.dataBaseHelper = new DataBaseHelper((Context)view);
         view.updateDisplay(dataBaseHelper.getAll());
     }
 
@@ -45,6 +45,7 @@ public class PassListActivityPresenter {
     public void searchDatabase(String search) {
         view.updateDisplay(dataBaseHelper.search(search));
     }
+
 
     public interface View {
         void updateDisplay(ArrayList<PassObj> list);

@@ -68,12 +68,14 @@
     <GridLayout
         android:id="@+id/activity_pass_generator_gl"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:columnCount="1"
         android:rowCount="6"
+        app:layout_constraintBottom_toTopOf="@+id/activity_pass_generator_tv_length"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_pass_generator_divider">
@@ -138,25 +140,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
         android:text="Password"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_pass_generator_slider" />
+        app:layout_constraintBottom_toTopOf="@+id/activity_pass_generator_til_password"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/activity_pass_generator_til_password"
         android:layout_width="0dp"
         android:layout_height="75dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:outlineAmbientShadowColor="@color/colorPrimary"
         app:endIconDrawable="@drawable/ic_baseline_refresh_24"
         app:endIconMode="custom"
+        app:layout_constraintBottom_toTopOf="@+id/activity_pass_generator_coordinator_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_pass_generator_tv_password">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/activity_pass_generator_et_password"
@@ -178,14 +179,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
         android:stepSize="1.0"
         android:value="8"
         android:valueFrom="1"
         android:valueTo="20"
         app:haloColor="@color/colorAccent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_pass_generator_tv_length" />
+        app:layout_constraintBottom_toTopOf="@+id/activity_pass_generator_tv_password"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/activity_pass_generator_tv_length"
@@ -193,10 +194,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
         android:text="Length"
-        app:layout_constraintBottom_toTopOf="@id/activity_pass_generator_slider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_pass_generator_gl" />
+        app:layout_constraintBottom_toTopOf="@+id/activity_pass_generator_slider"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -66,12 +66,14 @@
     <GridLayout
         android:id="@+id/activity_existing_pass_gl"
         android:layout_width="0dp"
-        android:layout_height="275dp"
+        android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
         android:columnCount="2"
         android:rowCount="3"
+        app:layout_constraintBottom_toTopOf="@+id/activity_existing_pass_til_comment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_existing_pass_divider">
@@ -90,23 +92,23 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/activity_existing_pass_til_title"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_row="0"
             android:layout_rowWeight="1"
             android:layout_column="1"
             android:layout_columnWeight="1"
+            android:hint="@string/type_title_here"
             app:counterEnabled="true"
             app:counterMaxLength="20"
-            android:hint="@string/type_title_here"
-            app:errorEnabled="true"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/activity_existing_pass_et_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="21"
+                android:enabled="false"
                 android:gravity="bottom"
-                android:enabled="false"/>
+                android:maxLength="21" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,15 +127,15 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/activity_existing_pass_til_username"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_row="1"
             android:layout_rowWeight="1"
             android:layout_column="1"
             android:layout_columnWeight="1"
+            android:hint="@string/type_username_here"
             app:counterEnabled="true"
             app:counterMaxLength="20"
-            app:errorEnabled="true"
-            android:hint="@string/type_username_here"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/activity_existing_pass_et_username"
@@ -141,8 +143,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:gravity="bottom"
-                android:maxLength="21"
-                />
+                android:maxLength="21" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,26 +161,25 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/activity_existing_pass_til_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_row="2"
             android:layout_rowWeight="1"
             android:layout_column="1"
             android:layout_columnWeight="1"
-            app:endIconMode="password_toggle"
+            android:hint="@string/type_username_here"
             app:counterEnabled="true"
             app:counterMaxLength="20"
-            app:errorEnabled="true"
-            android:hint="@string/type_username_here"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            app:endIconMode="password_toggle"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/activity_existing_pass_et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:inputType="textPassword"
                 android:gravity="bottom"
-                android:maxLength="21"
-                />
+                android:inputType="textPassword"
+                android:maxLength="21" />
         </com.google.android.material.textfield.TextInputLayout>
     </GridLayout>
 
@@ -188,30 +188,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
         android:text="@string/comments"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_existing_pass_gl" />
+        app:layout_constraintBottom_toTopOf="@+id/activity_existing_pass_til_comment"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/activity_existing_pass_til_comment"
         android:layout_width="350dp"
-        android:layout_height="150dp"
+        android:layout_height="75dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_existing_pass_bt_delete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_add_pass_tv_comments">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/activity_existing_pass_et_comment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="start"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:gravity="start" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -219,8 +218,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:insetLeft="0dp"
         android:insetTop="0dp"
         android:insetRight="0dp"
@@ -229,9 +228,9 @@
         app:icon="@drawable/baseline_delete_black_18dp"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_existing_pass_coordinator_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_existing_pass_til_comment" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/activity_existing_pass_coordinator_layout"

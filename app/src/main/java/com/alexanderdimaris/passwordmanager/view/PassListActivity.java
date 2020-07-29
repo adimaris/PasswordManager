@@ -54,7 +54,7 @@ public class PassListActivity extends AppCompatActivity implements SearchView.On
         snackBarLayout = findViewById(R.id.activity_pass_list_snackbar_layout);
         SearchView searchView = findViewById(R.id.activity_pass_list_search);
         searchView.setOnQueryTextListener(this);
-        presenter = new PassListActivityPresenter(this, PassListActivity.this);
+        presenter = new PassListActivityPresenter(this);
     }
 
     @Override
