@@ -14,9 +14,6 @@ public interface PassObjDao {
     @Query("SELECT * FROM passObj_db")
     LiveData<List<PassObj>> getAll();
 
-    @Query("SELECT * FROM passObj_db WHERE username LIKE :name ORDER BY username COLLATE NOCASE ASC")
-    LiveData<List<PassObj>> search(String name);
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PassObj passObj);
 
@@ -25,6 +22,4 @@ public interface PassObjDao {
 
     @Delete
     void delete(PassObj passObj);
-//    @Query("DELETE FROM passObj_db WHERE title = :title")
-//    void delete(String title);
 }

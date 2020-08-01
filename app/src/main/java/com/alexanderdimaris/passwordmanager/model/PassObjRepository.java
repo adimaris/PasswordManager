@@ -22,13 +22,6 @@ public class PassObjRepository {
         return mAllPasswords;
     }
 
-    public LiveData<List<PassObj>> search(String string) {
-        PassObjRoomDatabase.databaseWriteExecutor.execute(() -> {
-            mAllPasswords = mPassObjDao.search(string);
-        });
-        return mAllPasswords;
-    }
-
     public void insert(final PassObj passObj) {
         PassObjRoomDatabase.databaseWriteExecutor.execute(() -> {
             mPassObjDao.insert(passObj);

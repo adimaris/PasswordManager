@@ -26,10 +26,6 @@ public class PassObjViewModel extends AndroidViewModel {
         return mAllPasswords;
     }
 
-    public LiveData<List<PassObj>> search(String string) {
-        mAllPasswords = mRepository.search(string);
-        return mAllPasswords;
-    }
 
     public void insert(PassObj passObj) {
         mRepository.insert(passObj);
