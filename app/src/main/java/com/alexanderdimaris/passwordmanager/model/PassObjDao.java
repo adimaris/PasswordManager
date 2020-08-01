@@ -25,4 +25,6 @@ public interface PassObjDao {
 
     @Delete
     void delete(PassObj passObj);
+//    @Query("DELETE FROM passObj_db WHERE title = :title")
+//    void delete(String title);
 }

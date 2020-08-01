@@ -42,7 +42,8 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
         snackBar = findViewById(R.id.activity_existing_pass_coordinator_layout);
 
         Intent intent = getIntent();
-        passObj = intent.getParcelableExtra("passObj");
+        Bundle bundle = intent.getExtras();
+        passObj = (PassObj) bundle.getSerializable("passObj");
 
         etTitle.setText(passObj.getTitle());
         etUsername.setText(passObj.getUsername());

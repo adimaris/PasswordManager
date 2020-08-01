@@ -15,28 +15,19 @@ import java.util.List;
 
 public class PassObjListAdapter extends RecyclerView.Adapter<PassObjListAdapter.PassObjViewHolder> {
 
-    static class PassObjViewHolder extends RecyclerView.ViewHolder {
-        private final MaterialTextView passwordTitle;
-        private final MaterialTextView usernameText;
-
-        private PassObjViewHolder(View itemView) {
-            super(itemView);
-            passwordTitle = itemView.findViewById(R.id.list_item_tv_title);
-            usernameText = itemView.findViewById(R.id.list_item_tv_username);
-        }
-    }
-
     private final LayoutInflater mInflater;
     private List<PassObj> mPassObjList;
+    private OnPasswordListener mOnPasswordListener;
 
-    PassObjListAdapter(Context context) {
+    PassObjListAdapter(Context context, OnPasswordListener onPasswordListener) {
         mInflater = LayoutInflater.from(context);
+        this.mOnPasswordListener = onPasswordListener;
     }
 
     @Override
     public PassObjViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.list_item, parent, false);
-        return new PassObjViewHolder(itemView);
+        return new PassObjViewHolder(itemView, mOnPasswordListener);
     }
 
     @Override
@@ -55,8 +46,33 @@ public class PassObjListAdapter extends RecyclerView.Adapter<PassObjListAdapter.
 
     @Override
     public int getItemCount() {
-        if (mPassObjList != null)
+        if (mPassObjList != null) {
             return mPassObjList.size();
-        else return 0;
+        } else {
+            return 0;
+        }
+    }
+
+    static class PassObjViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final MaterialTextView passwordTitle;
+        private final MaterialTextView usernameText;
+        OnPasswordListener onPasswordListener;
+
+        public PassObjViewHolder(View itemView, OnPasswordListener onPasswordListener) {
+            super(itemView);
+            passwordTitle = itemView.findViewById(R.id.list_item_tv_title);
+            usernameText = itemView.findViewById(R.id.list_item_tv_username);
+            this.onPasswordListener = onPasswordListener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onPasswordListener.onPasswordClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnPasswordListener {
+        void onPasswordClick(int position);
     }
 }

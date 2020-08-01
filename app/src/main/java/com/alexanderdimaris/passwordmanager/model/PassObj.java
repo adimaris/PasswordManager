@@ -1,5 +1,6 @@
 package com.alexanderdimaris.passwordmanager.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -12,14 +13,17 @@ public class PassObj implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    @NonNull
     @ColumnInfo(name = "title")
     private String title;
 
+    @NonNull
     @ColumnInfo(name = "username")
     private String username;
 
-    @ColumnInfo(name = "password")
-    private String password;
+   @NonNull
+   @ColumnInfo(name = "password")
+   private String password;
 
     @ColumnInfo(name = "comments")
     private String comments;
