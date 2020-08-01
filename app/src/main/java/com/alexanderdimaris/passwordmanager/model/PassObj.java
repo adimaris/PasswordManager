@@ -1,18 +1,30 @@
 package com.alexanderdimaris.passwordmanager.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-public class PassObj implements Parcelable {
+import java.io.Serializable;
 
+@Entity(tableName = "passObj_db")
+public class PassObj implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
     private int id;
+
+    @ColumnInfo(name = "title")
     private String title;
+
+    @ColumnInfo(name = "username")
     private String username;
+
+    @ColumnInfo(name = "password")
     private String password;
+
+    @ColumnInfo(name = "comments")
     private String comments;
 
-    public PassObj (int id, String title, String username, String password, String comments) {
-        this.id = id;
+    public PassObj (String title, String username, String password, String comments) {
         this.title = title;
         this.username = username;
         this.password = password;
@@ -57,39 +69,5 @@ public class PassObj implements Parcelable {
 
     public void setComments(String comments) {
         this.comments = comments;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(title);
-        dest.writeString(username);
-        dest.writeString(password);
-        dest.writeString(comments);
-    }
-
-    public PassObj(Parcel parcel) {
-        id = parcel.readInt();
-        title = parcel.readString();
-        username = parcel.readString();
-        password = parcel.readString();
-        comments = parcel.readString();
-    }
-
-    public static final Parcelable.Creator<PassObj> CREATOR = new Parcelable.Creator<PassObj>() {
-
-        @Override
-        public PassObj createFromParcel(Parcel parcel) {
-            return new PassObj(parcel);
-        }
-
-        @Override
-        public PassObj[] newArray(int size) {
-            return new PassObj[0];
-        }
-    };
-
-    public int describeContents() {
-        return hashCode();
     }
 }

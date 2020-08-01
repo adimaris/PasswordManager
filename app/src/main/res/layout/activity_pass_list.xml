@@ -35,8 +35,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_pass_list_tv_title" />
 
-    <ListView
-        android:id="@+id/activity_pass_list_lv"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/activity_pass_list_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"

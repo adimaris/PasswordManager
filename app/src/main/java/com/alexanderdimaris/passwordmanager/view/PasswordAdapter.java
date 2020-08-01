@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 
 import com.alexanderdimaris.passwordmanager.R;
 import com.alexanderdimaris.passwordmanager.model.PassObj;
@@ -21,7 +22,7 @@ public class PasswordAdapter extends ArrayAdapter<PassObj> {
     private Context context;
     private List<PassObj> passwordList;
 
-    public PasswordAdapter(Context context, ArrayList<PassObj> passwords) {
+    public PasswordAdapter(Context context, List<PassObj> passwords) {
         super(context, 0, passwords);
         this.context = context;
         passwordList = passwords;

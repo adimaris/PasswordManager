@@ -83,7 +83,7 @@ public class AddPassActivity extends AppCompatActivity implements View.OnClickLi
                     .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
                     .show();
         } else {
-            PassObj passObj = new PassObj(-1, title, username, password, comments);
+            PassObj passObj = new PassObj(title, username, password, comments);
             Intent resultIntent = new Intent();
             resultIntent.putExtra("passObj", passObj);
             setResult(1, resultIntent);
