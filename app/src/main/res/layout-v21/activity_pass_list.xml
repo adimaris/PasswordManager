@@ -48,7 +48,8 @@
         android:src="@drawable/baseline_add_white_18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white" />
+        app:tint="@android:color/white"
+        android:focusable="true" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/activity_pass_list_snackbar_layout"

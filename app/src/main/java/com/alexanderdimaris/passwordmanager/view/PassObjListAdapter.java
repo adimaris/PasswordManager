@@ -35,7 +35,7 @@ public class PassObjListAdapter extends RecyclerView.Adapter<PassObjListAdapter.
         if (mPassObjList != null) {
             PassObj current = mPassObjList.get(position);
             holder.passwordTitle.setText(current.getTitle());
-            holder.usernameText.setText(current.getPassword());
+            holder.usernameText.setText(current.getUsername());
         }
     }
 

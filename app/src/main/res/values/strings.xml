@@ -9,4 +9,13 @@
     <string name="type_password_here">Type password here</string>
     <string name="comments">Comments</string>
     <string name="password_manager">Password Manager</string>
+    <string name="generator">Generator</string>
+    <string name="lower_case">lower case</string>
+    <string name="upper_case">upper case</string>
+    <string name="special_characters">special characters</string>
+    <string name="brackets">brackets</string>
+    <string name="spaces">spaces</string>
+    <string name="digits">digits</string>
+    <string name="length">Length</string>
+    <string name="key_icon">key icon</string>
 </resources>
