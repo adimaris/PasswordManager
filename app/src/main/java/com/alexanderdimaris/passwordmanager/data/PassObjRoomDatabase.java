@@ -1,10 +1,12 @@
-package com.alexanderdimaris.passwordmanager.model;
+package com.alexanderdimaris.passwordmanager.data;
 
 import android.content.Context;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+
+import com.alexanderdimaris.passwordmanager.model.PassObj;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,7 +20,6 @@ public abstract class PassObjRoomDatabase extends RoomDatabase {
     private static PassObjRoomDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-
 
     static PassObjRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {

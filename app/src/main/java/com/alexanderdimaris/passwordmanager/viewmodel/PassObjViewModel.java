@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.alexanderdimaris.passwordmanager.model.PassObj;
-import com.alexanderdimaris.passwordmanager.model.PassObjRepository;
+import com.alexanderdimaris.passwordmanager.data.PassObjRepository;
 
 import java.util.List;
 

@@ -1,8 +1,10 @@
-package com.alexanderdimaris.passwordmanager.model;
+package com.alexanderdimaris.passwordmanager.data;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+
+import com.alexanderdimaris.passwordmanager.model.PassObj;
 
 import java.util.List;
 
@@ -23,20 +25,14 @@ public class PassObjRepository {
     }
 
     public void insert(final PassObj passObj) {
-        PassObjRoomDatabase.databaseWriteExecutor.execute(() -> {
-            mPassObjDao.insert(passObj);
-        });
+        PassObjRoomDatabase.databaseWriteExecutor.execute(() -> mPassObjDao.insert(passObj));
     }
 
     public void update(final PassObj passObj) {
-        PassObjRoomDatabase.databaseWriteExecutor.execute(() -> {
-            mPassObjDao.updatePass(passObj);
-        });
+        PassObjRoomDatabase.databaseWriteExecutor.execute(() -> mPassObjDao.updatePass(passObj));
     }
 
     public void delete(final PassObj passObj) {
-        PassObjRoomDatabase.databaseWriteExecutor.execute(() -> {
-            mPassObjDao.delete(passObj);
-        });
+        PassObjRoomDatabase.databaseWriteExecutor.execute(() -> mPassObjDao.delete(passObj));
     }
 }
