@@ -14,7 +14,7 @@ import java.util.List;
 
 @Dao
 public interface PassObjDao {
-    @Query("SELECT * FROM passObj_db")
+    @Query("SELECT * FROM passObj_db ORDER BY LOWER(title)")
     LiveData<List<PassObj>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

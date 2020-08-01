@@ -86,6 +86,7 @@
             android:layout_rowWeight="1"
             android:paddingLeft="24dp"
             android:paddingRight="24dp"
+
             android:text="@string/lower_case" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial

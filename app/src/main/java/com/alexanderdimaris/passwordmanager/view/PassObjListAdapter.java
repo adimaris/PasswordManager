@@ -15,39 +15,39 @@ import java.util.List;
 
 public class PassObjListAdapter extends RecyclerView.Adapter<PassObjListAdapter.PassObjViewHolder> {
 
-    private final LayoutInflater mInflater;
-    private List<PassObj> mPassObjList;
-    private OnPasswordListener mOnPasswordListener;
+    private final LayoutInflater layoutInflater;
+    private List<PassObj> passObjList;
+    private OnPasswordListener onPasswordListener;
 
     PassObjListAdapter(Context context, OnPasswordListener onPasswordListener) {
-        mInflater = LayoutInflater.from(context);
-        this.mOnPasswordListener = onPasswordListener;
+        layoutInflater = LayoutInflater.from(context);
+        this.onPasswordListener = onPasswordListener;
     }
 
     @Override
     public PassObjViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.list_item, parent, false);
-        return new PassObjViewHolder(itemView, mOnPasswordListener);
+        View itemView = layoutInflater.inflate(R.layout.list_item, parent, false);
+        return new PassObjViewHolder(itemView, onPasswordListener);
     }
 
     @Override
     public void onBindViewHolder(PassObjViewHolder holder, int position) {
-        if (mPassObjList != null) {
-            PassObj current = mPassObjList.get(position);
+        if (passObjList != null) {
+            PassObj current = passObjList.get(position);
             holder.passwordTitle.setText(current.getTitle());
             holder.usernameText.setText(current.getUsername());
         }
     }
 
-    void setWords(List<PassObj> passList){
-        mPassObjList = passList;
+    void setPasswords(List<PassObj> passList){
+        passObjList = passList;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        if (mPassObjList != null) {
-            return mPassObjList.size();
+        if (passObjList != null) {
+            return passObjList.size();
         } else {
             return 0;
         }

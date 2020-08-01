@@ -26,33 +26,36 @@ public class PassGeneratorActivity extends AppCompatActivity implements View.OnC
     private CoordinatorLayout snackBar;
     private String result = "";
 
+    final static int PASSWORD_GENERATED = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_generator);
 
+        initializeViews();
+    }
+
+    private void initializeViews() {
         swLowerCase = findViewById(R.id.activity_pass_generator_sw_lower_case);
         swUpperCase = findViewById(R.id.activity_pass_generator_sw_upper_case);
         swDigits = findViewById(R.id.activity_pass_generator_sw_digits);
         swSpecial = findViewById(R.id.activity_pass_generator_sw_special);
         swBrackets = findViewById(R.id.activity_pass_generator_sw_brackets);
         swSpaces = findViewById(R.id.activity_pass_generator_sw_spaces);
-
         etPasswordOutput = findViewById(R.id.activity_pass_generator_et_password);
         slider = findViewById(R.id.activity_pass_generator_slider);
         snackBar = findViewById(R.id.activity_pass_generator_coordinator_layout);
-
         TextInputLayout tilPassword = findViewById(R.id.activity_pass_generator_til_password);
-        tilPassword.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                generatePassword(v);
-            }
-        });
-
         MaterialButton btBack = findViewById(R.id.activity_pass_generator_bt_back);
-        btBack.setOnClickListener(this);
         MaterialButton btAccept = findViewById(R.id.activity_pass_generator_bt_accept);
+
+        swDigits.setChecked(true);
+        swLowerCase.setChecked(true);
+        swUpperCase.setChecked(true);
+
+        tilPassword.setEndIconOnClickListener(this::generatePassword);
+        btBack.setOnClickListener(this);
         btAccept.setOnClickListener(this);
     }
 
@@ -62,11 +65,9 @@ public class PassGeneratorActivity extends AppCompatActivity implements View.OnC
             case R.id.activity_pass_generator_bt_back:
                 finish();
                 break;
-
             case R.id.activity_pass_generator_bt_accept:
                 accept();
                 break;
-
             default:
                 break;
         }
@@ -147,7 +148,7 @@ public class PassGeneratorActivity extends AppCompatActivity implements View.OnC
         } else {
             Intent intent = new Intent();
             intent.putExtra("generatedPassword", result);
-            setResult(1, intent);
+            setResult(PASSWORD_GENERATED, intent);
             finish();
         }
     }

@@ -2,7 +2,6 @@ package com.alexanderdimaris.passwordmanager.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,35 +18,41 @@ import java.util.ArrayList;
 
 public class PassListActivity extends AppCompatActivity implements PassObjListAdapter.OnPasswordListener {
 
-    public static final int NEW_PASS_ACTIVITY_REQUEST_CODE = 1;
     private PassObjViewModel passObjViewModel;
     private ArrayList<PassObj> passObjArrayList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private PassObjListAdapter adapter;
+
+    static final int ADD_PASSWORD = 1;
+    static final int UPDATE_PASSWORD = 2;
+    static final int DELETE_PASSWORD = 3;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_list);
 
-        RecyclerView recyclerView = findViewById(R.id.activity_pass_list_rv);
-        final PassObjListAdapter adapter = new PassObjListAdapter(this, this);
+        passObjViewModel = new ViewModelProvider(this).get(PassObjViewModel.class);
+        adapter = new PassObjListAdapter(this, this);
 
+        initializeViews();
         recyclerView.setAdapter(adapter);
+    }
+
+    private void initializeViews() {
+        recyclerView = findViewById(R.id.activity_pass_list_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        passObjViewModel = new ViewModelProvider(this).get(PassObjViewModel.class);
         passObjViewModel.getAllPasswords().observe(this, passwords -> {
             passObjArrayList.clear();
             passObjArrayList.addAll(passwords);
-            adapter.setWords(passwords);
+            adapter.setPasswords(passwords);
         });
 
         FloatingActionButton fab = findViewById(R.id.activity_pass_list_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PassListActivity.this, AddPassActivity.class);
-                startActivityForResult(intent, NEW_PASS_ACTIVITY_REQUEST_CODE);
-            }
+        fab.setOnClickListener(view -> {
+            Intent intent = new Intent(PassListActivity.this, AddPassActivity.class);
+            startActivityForResult(intent, 1);
         });
     }
 
@@ -57,13 +62,14 @@ public class PassListActivity extends AppCompatActivity implements PassObjListAd
         if (resultCode != 0) {
             assert data != null;
             Bundle bundle = data.getExtras();
+            assert bundle != null;
             PassObj passObj = (PassObj) bundle.getSerializable("passObj");
 
-            if(resultCode == 1) {
+            if(resultCode == ADD_PASSWORD) {
                 passObjViewModel.insert(passObj);
-            } else if (resultCode == 2) {
+            } else if (resultCode == UPDATE_PASSWORD) {
                 passObjViewModel.update(passObj);
-            } else if(resultCode == 3) {
+            } else if(resultCode == DELETE_PASSWORD) {
                 passObjViewModel.delete(passObj);
             }
         }

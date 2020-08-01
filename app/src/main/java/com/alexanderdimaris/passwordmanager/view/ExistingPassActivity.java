@@ -1,14 +1,13 @@
 package com.alexanderdimaris.passwordmanager.view;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.alexanderdimaris.passwordmanager.R;
 import com.alexanderdimaris.passwordmanager.model.PassObj;
@@ -21,18 +20,31 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 
 public class ExistingPassActivity extends AppCompatActivity implements View.OnClickListener {
+
     private PassObj passObj = null;
     private TextInputEditText etTitle, etUsername, etPassword, etComments;
     private TextInputLayout tilPassword;
-    private MaterialButton btEdit;
-    private MaterialButton btDelete;
+    private MaterialButton btEdit, btDelete;
     private CoordinatorLayout snackBar;
+    MaterialButton btBack;
+
+    final static int GENERATE_PASSWORD = 1;
+    final static int PASSWORD_UPDATED = 2;
+    final static int PASSWORD_DELETED = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_existing_pass);
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        passObj = (PassObj) bundle.getSerializable("passObj");
+
+        initializeViews();
+    }
+
+    private void initializeViews() {
         etTitle = findViewById(R.id.activity_existing_pass_et_title);
         etUsername = findViewById(R.id.activity_existing_pass_et_username);
         etPassword = findViewById(R.id.activity_existing_pass_et_password);
@@ -40,22 +52,17 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
         tilPassword = findViewById(R.id.activity_existing_pass_til_password);
         MaterialTextView tvTitle = findViewById(R.id.activity_existing_pass_tv_title);
         snackBar = findViewById(R.id.activity_existing_pass_coordinator_layout);
-
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        passObj = (PassObj) bundle.getSerializable("passObj");
-
         etTitle.setText(passObj.getTitle());
         etUsername.setText(passObj.getUsername());
         etPassword.setText(passObj.getPassword());
         etComments.setText(passObj.getComments());
         tvTitle.setText(passObj.getTitle());
-
-        MaterialButton btBack = findViewById(R.id.activity_existing_pass_bt_back);
-        btBack.setOnClickListener(this);
+        btBack = findViewById(R.id.activity_existing_pass_bt_back);
         btEdit = findViewById(R.id.activity_existing_pass_bt_edit);
-        btEdit.setOnClickListener(this);
         btDelete = findViewById(R.id.activity_existing_pass_bt_delete);
+
+        btBack.setOnClickListener(this);
+        btEdit.setOnClickListener(this);
         btDelete.setOnClickListener(this);
     }
 
@@ -63,23 +70,18 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.activity_existing_pass_bt_back:
                 finish();
                 break;
-
             case R.id.activity_existing_pass_bt_edit:
                 edit(v);
                 break;
-
             case R.id.activity_existing_pass_bt_delete:
                 delete(v);
                 break;
-
             case R.id.text_input_end_icon:
                 Intent intent = new Intent(getApplicationContext(), PassGeneratorActivity.class);
-                startActivityForResult(intent, 2);
-
+                startActivityForResult(intent, GENERATE_PASSWORD);
             default:
                 break;
         }
@@ -90,21 +92,15 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(ExistingPassActivity.this);
         builder.setTitle("Are you sure?");
 
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("passObj", passObj);
-                setResult(3, resultIntent);
-                finish();
-            }
+        builder.setPositiveButton("YES", (dialog, which) -> {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("passObj", passObj);
+            setResult(PASSWORD_DELETED, resultIntent);
+            finish();
         });
 
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // DO NOTHING
-            }
+        builder.setNegativeButton("NO", (dialog, which) -> {
+            // DO NOTHING
         });
 
         builder.show();
@@ -121,12 +117,7 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
         tilPassword.setEndIconDrawable(R.drawable.ic_baseline_build_24);
         tilPassword.setEndIconOnClickListener(this);
 
-        btEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                save();
-            }
-        });
+        btEdit.setOnClickListener(v1 -> save());
     }
 
     public void save() {
@@ -153,7 +144,7 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
 
             Intent resultIntent = new Intent();
             resultIntent.putExtra("passObj", passObj);
-            setResult(2, resultIntent);
+            setResult(PASSWORD_UPDATED, resultIntent);
             finish();
         }
     }
@@ -161,7 +152,7 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 1) {
+        if(resultCode == GENERATE_PASSWORD) {
             assert data != null;
             etPassword.setText(data.getStringExtra("generatedPassword"));
         }

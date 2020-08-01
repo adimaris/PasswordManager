@@ -15,7 +15,7 @@ public class PassObjViewModel extends AndroidViewModel {
     private PassObjRepository mRepository;
     private LiveData<List<PassObj>> mAllPasswords;
 
-    public PassObjViewModel (Application application) {
+    public PassObjViewModel(Application application) {
         super(application);
         mRepository = new PassObjRepository(application);
         mAllPasswords = mRepository.getAllPasswords();
@@ -25,7 +25,6 @@ public class PassObjViewModel extends AndroidViewModel {
         mAllPasswords = mRepository.getAllPasswords();
         return mAllPasswords;
     }
-
 
     public void insert(PassObj passObj) {
         mRepository.insert(passObj);

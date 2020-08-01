@@ -24,11 +24,17 @@ public class AddPassActivity extends AppCompatActivity implements View.OnClickLi
     MaterialButton btBack;
     CoordinatorLayout snackBar;
 
+    final static int PASSWORD_ADDED = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pass);
 
+        initializeViews();
+    }
+
+    private void initializeViews() {
         etTitle = findViewById(R.id.activity_add_pass_et_title);
         etUsername = findViewById(R.id.activity_add_pass_et_username);
         etPassword = findViewById(R.id.activity_add_pass_et_password);
@@ -47,22 +53,17 @@ public class AddPassActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-
         switch(v.getId()) {
-
             case R.id.activity_add_pass_btn_back:
                 finish();
                 break;
-
             case R.id.activity_add_pass_btn_save:
                 save();
                 break;
-
             case R.id.text_input_end_icon:
                 Intent intent = new Intent(getApplicationContext(), PassGeneratorActivity.class);
                 startActivityForResult(intent, 1);
                 break;
-
             default:
                 break;
         }
@@ -86,7 +87,7 @@ public class AddPassActivity extends AppCompatActivity implements View.OnClickLi
             PassObj passObj = new PassObj(title, username, password, comments);
             Intent resultIntent = new Intent();
             resultIntent.putExtra("passObj", passObj);
-            setResult(1, resultIntent);
+            setResult(PASSWORD_ADDED, resultIntent);
             finish();
         }
     }
