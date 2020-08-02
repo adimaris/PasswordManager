@@ -18,4 +18,7 @@
     <string name="digits">digits</string>
     <string name="length">Length</string>
     <string name="key_icon">key icon</string>
+    <string name="app_logo">app logo</string>
+    <string name="login_or_sign_up">Login or Sign Up</string>
+    <string name="login">Login</string>
 </resources>

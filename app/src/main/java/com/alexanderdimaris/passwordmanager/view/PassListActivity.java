@@ -82,4 +82,9 @@ public class PassListActivity extends AppCompatActivity implements PassObjListAd
         intent.putExtra("passObj", selected);
         startActivityForResult(intent, 2);
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

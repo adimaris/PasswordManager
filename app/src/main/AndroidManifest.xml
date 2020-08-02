@@ -9,15 +9,14 @@
         android:roundIcon="@drawable/ic_baseline_lock_24"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".view.PassListActivity"></activity>
         <activity android:name=".view.ExistingPassActivity" />
         <activity android:name=".view.PassGeneratorActivity" />
         <activity android:name=".view.AddPassActivity" />
-        <activity android:name=".view.PassListActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SEARCH" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
