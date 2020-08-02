@@ -8,6 +8,9 @@ import androidx.room.RoomDatabase;
 
 import com.alexanderdimaris.passwordmanager.model.PassObj;
 
+import net.sqlcipher.database.SupportFactory;
+import net.sqlcipher.database.SQLiteDatabase;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -25,7 +28,13 @@ public abstract class PassObjRoomDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (PassObjRoomDatabase.class) {
                 if (INSTANCE == null) {
+
+                    char[] testBytes = {'t', 'e', 's', 't'};
+                    final byte[] passphrase = SQLiteDatabase.getBytes(testBytes);
+                    final SupportFactory factory = new SupportFactory(passphrase);
+
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(), PassObjRoomDatabase.class, DATABASE_NAME)
+                            .openHelperFactory(factory)
                             .build();
                 }
             }
