@@ -13,7 +13,7 @@
         <activity android:name=".view.ExistingPassActivity" />
         <activity android:name=".view.PassGeneratorActivity" />
         <activity android:name=".view.AddPassActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SEARCH" />

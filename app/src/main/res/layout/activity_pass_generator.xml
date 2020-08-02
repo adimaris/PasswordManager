@@ -155,7 +155,7 @@
         android:outlineAmbientShadowColor="@color/colorPrimary"
         app:endIconDrawable="@drawable/ic_baseline_refresh_24"
         app:endIconMode="custom"
-        app:layout_constraintBottom_toTopOf="@+id/activity_pass_generator_coordinator_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
