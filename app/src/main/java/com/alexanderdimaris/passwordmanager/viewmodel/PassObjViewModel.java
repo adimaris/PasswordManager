@@ -12,30 +12,30 @@ import java.util.List;
 
 public class PassObjViewModel extends AndroidViewModel {
 
-    private PassObjRepository mRepository;
-    private LiveData<List<PassObj>> mAllPasswords;
+    private PassObjRepository repository;
+    private LiveData<List<PassObj>> allPasswords;
 
     public PassObjViewModel(Application application) {
         super(application);
-        mRepository = new PassObjRepository(application);
-        mAllPasswords = mRepository.getAllPasswords();
+        repository = new PassObjRepository(application);
+        allPasswords = repository.getAllPasswords();
     }
 
     public LiveData<List<PassObj>> getAllPasswords() {
-        mAllPasswords = mRepository.getAllPasswords();
-        return mAllPasswords;
+        allPasswords = repository.getAllPasswords();
+        return allPasswords;
     }
 
     public void insert(PassObj passObj) {
-        mRepository.insert(passObj);
+        repository.insert(passObj);
     }
 
     public void delete(PassObj passObj) {
-        mRepository.delete(passObj);
+        repository.delete(passObj);
     }
 
     public void update(PassObj passObj) {
-        mRepository.update(passObj);
+        repository.update(passObj);
     }
 
 }

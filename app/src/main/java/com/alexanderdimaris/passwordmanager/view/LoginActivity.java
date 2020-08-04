@@ -16,7 +16,6 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private MaterialButton btLogin;
     private TextInputEditText etUsername, etPassword;
     private CoordinatorLayout snackBar;
 
@@ -34,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private void initializeViews() {
         etUsername = findViewById(R.id.login_username_et);
         etPassword = findViewById(R.id.login_password_et);
-        btLogin = findViewById(R.id.login_button);
+        MaterialButton btLogin = findViewById(R.id.login_button);
         btLogin.setOnClickListener(v -> login());
         snackBar = findViewById(R.id.login_snackbar);
     }

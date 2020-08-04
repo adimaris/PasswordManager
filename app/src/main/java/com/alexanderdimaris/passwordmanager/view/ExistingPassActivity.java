@@ -24,7 +24,8 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
     private PassObj passObj = null;
     private TextInputEditText etTitle, etUsername, etPassword, etComments;
     private TextInputLayout tilPassword;
-    private MaterialButton btEdit, btDelete, btBack;
+    private MaterialButton btEdit;
+    private MaterialButton btDelete;
     private CoordinatorLayout snackBar;
 
     final static int GENERATE_PASSWORD = 1;
@@ -38,6 +39,7 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        assert bundle != null;
         passObj = (PassObj) bundle.getSerializable("passObj");
 
         initializeViews();
@@ -56,7 +58,7 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
         etPassword.setText(passObj.getPassword());
         etComments.setText(passObj.getComments());
         tvTitle.setText(passObj.getTitle());
-        btBack = findViewById(R.id.activity_existing_pass_bt_back);
+        MaterialButton btBack = findViewById(R.id.activity_existing_pass_bt_back);
         btEdit = findViewById(R.id.activity_existing_pass_bt_edit);
         btDelete = findViewById(R.id.activity_existing_pass_bt_delete);
 
