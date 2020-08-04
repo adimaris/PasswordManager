@@ -1,9 +1,11 @@
 package com.alexanderdimaris.passwordmanager.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -81,6 +83,8 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
                 delete(v);
                 break;
             case R.id.text_input_end_icon:
+                InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 Intent intent = new Intent(getApplicationContext(), PassGeneratorActivity.class);
                 startActivityForResult(intent, GENERATE_PASSWORD);
             default:

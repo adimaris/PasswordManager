@@ -1,13 +1,15 @@
 package com.alexanderdimaris.passwordmanager.view;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.alexanderdimaris.passwordmanager.R;
 import com.alexanderdimaris.passwordmanager.model.PassObj;
@@ -61,6 +63,9 @@ public class AddPassActivity extends AppCompatActivity implements View.OnClickLi
                 save();
                 break;
             case R.id.text_input_end_icon:
+                InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
                 Intent intent = new Intent(getApplicationContext(), PassGeneratorActivity.class);
                 startActivityForResult(intent, 1);
                 break;
