@@ -17,6 +17,9 @@ public interface PassObjDao {
     @Query("SELECT * FROM passObj_db ORDER BY LOWER(title)")
     LiveData<List<PassObj>> getAll();
 
+    @Query("SELECT * FROM passObj_db WHERE title = :title")
+    List<PassObj> searchByTitle(String title);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PassObj passObj);
 

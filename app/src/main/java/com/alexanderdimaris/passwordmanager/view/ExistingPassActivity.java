@@ -24,9 +24,8 @@ public class ExistingPassActivity extends AppCompatActivity implements View.OnCl
     private PassObj passObj = null;
     private TextInputEditText etTitle, etUsername, etPassword, etComments;
     private TextInputLayout tilPassword;
-    private MaterialButton btEdit, btDelete;
+    private MaterialButton btEdit, btDelete, btBack;
     private CoordinatorLayout snackBar;
-    MaterialButton btBack;
 
     final static int GENERATE_PASSWORD = 1;
     final static int PASSWORD_UPDATED = 2;
